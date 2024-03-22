@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Estudante</title>
+</head>
+<body>
+
+<h2>Registro de Estudante</h2>
+
+<form action="#" th:action="@{/register}" th:object="${student}" method="post">
+    <div>
+        <label for="firstName">Primeiro Nome:</label>
+        <input type="text" id="firstName" name="firstName" th:field="*{fistName}" required>
+    </div>
+    <div>
+        <label for="lastName">Último Nome:</label>
+        <input type="text" id="lastName" name="lastName" th:field="*{lastName}" required>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" th:field="*{email}" required>
+    </div>
+    <div>
+        <label for="phone">Telefone:</label>
+        <input type="tel" id="phone" name="phone" placeholder="(xx) xxxx-xxxx" th:field="*{phone}">
+    </div>
+    <div>
+        <label for="institution">Instituição:</label>
+        <input type="text" id="institution" name="institution" th:field="*{institution}" required>
+    </div>
+    <div>
+        <label for="course">Curso:</label>
+        <input type="text" id="course" name="course" th:field="*{course}" required>
+    </div>
+    <div>
+        <label for="skills">Habilidades:</label>
+        <select id="skills" name="skills" multiple>
+            <option value="python">Programming in Python</option>
+            <option value="css">Design in CSS</option>
+            <option value="ux">UX Specialist</option>
+        </select>
+    </div>
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" th:field="*{username}" required>
+    </div>
+    <div>
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" th:field="*{password}" required>
+    </div>
+    <div>
+        <button type="submit">Registrar</button>
+    </div>
+</form>
+
+</body>
+</html>
