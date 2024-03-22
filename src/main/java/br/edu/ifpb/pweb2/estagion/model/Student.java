@@ -6,7 +6,8 @@ import java.util.List;
 
 @Data
 public class Student {
-    private String fistName;
+    private Long id;
+    private String firstName;
     private String lastName;
     private String username;
     private String phone;

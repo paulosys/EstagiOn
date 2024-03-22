@@ -8,13 +8,13 @@
 
 <h2>Registro de Estudante</h2>
 
-<form action="#" th:action="@{/register}" th:object="${student}" method="post">
+<form th:action="@{/auth/register/students}" th:object="${student}" method="POST">
     <div>
         <label for="firstName">Primeiro Nome:</label>
-        <input type="text" id="firstName" name="firstName" th:field="*{fistName}" required>
+        <input type="text" id="firstName" name="firstName" th:field="*{firstName}" required>
     </div>
     <div>
-        <label for="lastName">Último Nome:</label>
+        <label for="lastName">Sobrenome:</label>
         <input type="text" id="lastName" name="lastName" th:field="*{lastName}" required>
     </div>
     <div>
@@ -50,7 +50,7 @@
         <input type="password" id="password" name="password" th:field="*{password}" required>
     </div>
     <div>
-        <button type="submit">Registrar</button>
+        <button type="submit" name="submit">Registrar</button>
     </div>
 </form>
 
