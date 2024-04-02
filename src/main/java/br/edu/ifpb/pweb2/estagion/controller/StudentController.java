@@ -15,7 +15,6 @@ public class StudentController {
 
     @GetMapping
     public ModelAndView listStudents(ModelAndView modelAndView) {
-        System.out.println("AOWIDAOPDAWOPDOPAWKDWAOPKDOAW");
         modelAndView.setViewName("students/list");
         modelAndView.addObject("students", studentService.findAllStudents());
         return modelAndView;
