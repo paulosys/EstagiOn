@@ -1,0 +1,1 @@
+CREATE DATABASE estagion_db;
