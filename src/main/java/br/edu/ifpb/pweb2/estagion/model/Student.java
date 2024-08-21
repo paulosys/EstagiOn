@@ -7,13 +7,15 @@ import java.util.List;
 @Data
 public class Student {
     private Long id;
+    private String username;
+    private String password;
+    private String email;
     private String firstName;
     private String lastName;
-    private String username;
-    private String phone;
-    private String email;
-    private String password;
+    private String cpf;
     private String course;
     private String institution;
+    private String city;
+    private String state;
     private List<String> skills;
 }
