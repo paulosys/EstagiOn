@@ -1,10 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>EstágiOn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EstagiOn - Sua plataforma de estágios</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <h1> Site no Ar!</h1>
+
+<header class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4 text-center"><strong>EstagiOn</strong></h1> <p class="lead text-center">Encontre o estágio perfeito para você!</p>
+    </div>
+</header>
+
+<section class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-user-graduate"></i> Alunos</h5>
+                    <p class="card-text">Crie seu perfil e encontre as melhores oportunidades de estágio.</p>
+                    <a class="nav-link btn btn-primary" th:href="@{/login}">Acesse</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-building"></i> Empresas</h5>
+                    <p class="card-text">Publique suas vagas de estágio e encontre talentos incríveis.</p>
+                    <a class="nav-link btn btn-primary" th:href="@{/login}">Acesse</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-user-cog"></i> Coordenadores</h5>
+                    <p class="card-text">Gerencie ofertas, candidatos, empresas e acompanhe os estágios.</p>
+                    <a class="nav-link btn btn-primary" th:href="@{/login}">Acesse</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer mt-5 py-3 bg-light fixed-bottom"> <div class="container">
+    <p class="text-center mb-0">© 2024 EstagiOn</p>
+</div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
