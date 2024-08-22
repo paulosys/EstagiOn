@@ -1,6 +1,6 @@
 package br.edu.ifpb.pweb2.estagion.service;
 
-import br.edu.ifpb.pweb2.estagion.dao.StudentDAO;
+import br.edu.ifpb.pweb2.estagion.repositories.StudentRepository;
 import br.edu.ifpb.pweb2.estagion.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,25 +11,30 @@ import java.util.List;
 public class StudentService {
 
     @Autowired
-    private StudentDAO studentDAO;
+    private StudentRepository repository;
 
-    public void saveStudent(Student student) {
-        studentDAO.create(student);
+    public List<Student> findAll() {
+        return repository.findAll();
     }
 
-    public Student findStudentById(Long id) {
-        return studentDAO.find(id);
+    public Student findById(int id) {
+        return repository.findById(id).orElse(null);
     }
 
-    public List<Student> findAllStudents() {
-        return studentDAO.findAll();
+    public void save(Student student) {
+        repository.save(student);
     }
 
-    public void updateStudent(Student student) {
-        studentDAO.update(student);
-    }
+    public Student tryAuthenticate(String username, String password) {
+        Student student = repository.findByUsername(username).orElse(null);
 
-    public void deleteStudent(Long id) {
-        studentDAO.delete(id);
+        if (student == null){
+            return null;
+        }
+
+        if (student.getPassword().equals(password)) {
+            return student;
+        }
+        return null;
     }
 }

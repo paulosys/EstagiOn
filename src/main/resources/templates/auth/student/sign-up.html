@@ -23,7 +23,7 @@
                     <h3 class="text-center">Registro do Aluno</h3>
                 </div>
                 <div class="card-body">
-                    <form th:action="@{/auth/student/register}" method="post">
+                    <form th:action="@{/auth/student/register}" th:object="${student}" method="post">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="firstName">Primeiro Nome</label>
@@ -55,19 +55,6 @@
                                 <input type="text" class="form-control" id="course" name="course" required>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="state">Estado</label>
-                                <select class="form-control" id="state" name="state" required>
-                                    <option value="">Selecione</option>
-                                    <option th:each="state : ${states}" th:value="${state}" th:text="${state}"></option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="city">Cidade</label>
-                                <input type="text" class="form-control" id="city" name="city" required>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label for="username">Nome de Usuário</label>
                             <input type="text" class="form-control" id="username" name="username" required>
@@ -77,14 +64,16 @@
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
                         <div class="form-group">
-                            <label for="confirmaSenha">Confirma Senha</label>
-                            <input type="password" class="form-control" id="confirmaSenha" name="confirmaSenha" required>
+                            <label for="confirmaSenha">Confirmar Senha</label>
+                            <input type="password" class="form-control" id="confirmaSenha" name="confirmaSenha"
+                                   required>
                         </div>
                         <h4>Habilidades e Competências</h4>
                         <div class="form-group">
                             <label for="habilidades">Selecione suas habilidades e competências:</label>
                             <select class="form-control" id="habilidades" name="habilidades" multiple required>
-                                <option th:each="skill: ${skills}" th:value="${skill}" th:text="${skill}"></option>
+                                <option th:each="skill: ${skills}" th:value="${skill.getId()}"
+                                        th:text="${skill.getName()}"></option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Registrar</button>
