@@ -72,7 +72,8 @@
                         <div class="form-group">
                             <label for="habilidades">Selecione suas habilidades e competências:</label>
                             <select class="form-control" id="habilidades" name="habilidades" multiple required>
-                                <option th:each="skill: ${skills}" th:value="${skill.getId()}"
+                                <option th:each="skill: ${skills}"
+                                        th:value="${skill.getId()}"
                                         th:text="${skill.getName()}"></option>
                             </select>
                         </div>

@@ -10,9 +10,13 @@ import java.util.List;
 @Service
 public class SkillService {
     @Autowired
-    private SkillRepository repository;
+    private SkillRepository skillRepository;
 
     public List<Skill> findAll() {
-        return repository.findAll();
+        return skillRepository.findAll();
+    }
+
+    public List<Skill> findByIds(List<Integer> ids) {
+        return skillRepository.findAllById(ids);
     }
 }
