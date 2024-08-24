@@ -28,13 +28,10 @@ public class StudentService {
     public Student tryAuthenticate(String username, String password) {
         Student student = repository.findByUsername(username).orElse(null);
 
-        if (student == null){
-            return null;
-        }
-
-        if (student.getPassword().equals(password)) {
+        if (student != null && student.getPassword().equals(password)) {
             return student;
         }
+
         return null;
     }
 }
