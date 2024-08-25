@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Oferta de Estágio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Registrar Nova Oferta de Estágio</h2>
+
+    <form th:action="@{/companies/internship-offers/create}" th:object="${internshipOffer}" method="post">
+        <div class="form-group">
+            <label for="titulo">Título da Oferta:</label>
+            <input type="text" class="form-control" id="titulo" th:field="*{title}"
+                   placeholder="Ex.: Estágio em Desenvolvimento Web" required>
+        </div>
+
+        <div class="form-group">
+            <label for="descricao">Descrição da Vaga:</label>
+            <textarea class="form-control" id="descricao" th:field="*{description}" rows="3"
+                      placeholder="Descreva as atividades e responsabilidades do estágio" required></textarea>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="atividadePrincipal">Atividade Principal:</label>
+                <input type="text" class="form-control" id="atividadePrincipal" th:field="*{mainActivity}"
+                       placeholder="Ex.: Desenvolvimento de Software" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="chSemanal">Carga Horária Semanal (horas):</label>
+                <input type="number" class="form-control" id="chSemanal" th:field="*{weeklyWorkload}" min="1" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="valorBolsa">Valor da Bolsa (R$):</label>
+                <input type="number" class="form-control" id="valorBolsa" th:field="*{stipendAmount}" min="0"
+                       step="0.01">
+            </div>
+        </div>
+
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="valeTransporte" th:field="*{transportVoucher}">
+            <label class="form-check-label" for="valeTransporte">Oferece Vale Transporte?</label>
+        </div>
+
+        <div class="form-group">
+            <label for="preRequisitos">Pré-requisitos:</label>
+            <textarea class="form-control" id="preRequisitos" th:field="*{prerequisites}" rows="3"
+                      placeholder="Ex.: Cursando a partir do 5º período de Ciência da Computação"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="habilidadesNecessarias">Habilidades e Competências Técnicas Necessárias:</label>
+            <textarea class="form-control" id="habilidadesNecessarias" th:field="*{requiredSkills}" rows="3"
+                      placeholder="Ex.: Domínio em Java, Spring Boot, SQL"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="habilidadesDesejaveis">Habilidades e Competências Técnicas Desejáveis:</label>
+            <textarea class="form-control" id="habilidadesDesejaveis" th:field="*{desiredSkills}" rows="3"
+                      placeholder="Ex.: Conhecimento em Angular, Git"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Publicar Oferta</button>
+    </form>
+</div>
+
+<footer class="footer mt-5 py-3 bg-light fixed-bottom">
+    <div class="container">
+        <p class="text-center mb-0">© 2024 EstagiOn</p>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

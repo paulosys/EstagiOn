@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CompanyService{
+public class CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
 
@@ -35,7 +35,7 @@ public class CompanyService{
     public Company tryAuthenticate(String email, String password) {
         Company company = companyRepository.findByEmail(email).orElse(null);
 
-        if (company != null && company.getPassword().equals(password)){
+        if (company != null && company.getPassword().equals(password)) {
             return company;
         }
 

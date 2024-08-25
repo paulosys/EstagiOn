@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Listagem de Ofertas de Estágio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Minhas Ofertas de Estágio</h2>
+
+    <a th:href="@{/companies/internship-offers/create}" class="btn btn-primary mb-3">Registrar Nova Oferta</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Atividade Principal</th>
+            <th>Carga Horária</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="offer : ${internshipOffers}">
+            <td th:text="${offer.title}"></td>
+            <td th:text="${offer.mainActivity}"></td>
+            <td th:text="${offer.weeklyWorkload}"></td>
+            <td>
+                <span th:text="${offer.status.getName()}" class="badge badge-primary"/>
+            </td>
+            <td>
+                <a th:href="@{/companies/internship-offers/edit/{id}(id=${offer.id})}"
+                   class="btn btn-sm btn-warning"
+                   data-toggle="tooltip"
+                   data-placement="top"
+                   title="Editar Oferta">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+                <a th:href="@{/companies/internship-offers/delete/{id}(id=${offer.id})}"
+                   class="btn btn-sm btn-danger"
+                   data-toggle="tooltip"
+                   data-placement="top"
+                   title="Excluir Oferta">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer class="footer mt-5 py-3 bg-light fixed-bottom">
+    <div class="container">
+        <p class="text-center mb-0">© 2024 EstagiOn</p>
+    </div>
+</footer>
+
+</body>
+</html>
