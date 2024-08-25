@@ -16,7 +16,7 @@ public class CompanyController {
 
     @GetMapping
     public ModelAndView showHome(ModelAndView modelAndView, Company company) {
-        modelAndView.setViewName("companies/index");
+        modelAndView.setViewName("companies/home");
         modelAndView.addObject("company", company);
 
         return modelAndView;
