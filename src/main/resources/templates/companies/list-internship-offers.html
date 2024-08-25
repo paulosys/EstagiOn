@@ -39,13 +39,11 @@
                    title="Editar Oferta">
                     <i class="fas fa-pencil-alt"></i>
                 </a>
-                <a th:href="@{/companies/internship-offers/delete/{id}(id=${offer.id})}"
-                   class="btn btn-sm btn-danger"
-                   data-toggle="tooltip"
-                   data-placement="top"
-                   title="Excluir Oferta">
-                    <i class="fas fa-trash"></i>
-                </a>
+                <form th:action="@{'/companies/internship-offers/delete/' + ${offer.id}}" method="post" style="display:inline;">
+                    <button type="submit" title="Excluir Oferta" class="btn btn-sm btn-danger d-inline-block">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
             </td>
         </tr>
         </tbody>

@@ -26,6 +26,11 @@ public class InternshipOfferService {
         return internshipOfferRepository.findById(id).orElse(null);
     }
 
+    public void delete(int id) {
+        InternshipOffer internshipOffer = this.findById(id);
+        internshipOfferRepository.delete(internshipOffer);
+    }
+
     public void save(InternshipOffer internshipOffer, Integer companyId) {
         var status = statusInternshipOfferService.findById(1);
         var company = companyService.findById(companyId);
