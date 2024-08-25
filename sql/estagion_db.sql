@@ -1,1 +1,1 @@
-TRUNCATE TABLE student_skill, skill, student CASCADE;
+TRUNCATE TABLE student_skill, skill, student,  CASCADE;

@@ -5,8 +5,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @NoArgsConstructor
@@ -14,38 +18,47 @@ import lombok.NoArgsConstructor;
 public class Company extends User {
     @NotNull
     @Size(min = 3, max = 50)
-    @Column(name = "name", nullable = false, length = 50)
+    @Column(nullable = false)
     private String name;
 
+    @NotNull
     @Size(max = 14)
-    @Column(name = "cnpj", length = 14)
+    @Column(nullable = false)
     private String cnpj;
 
+    @NotNull
     @Size(max = 255)
-    @Column(name = "address", length = 255)
+    @Column(nullable = false)
     private String address;
 
+    @NotNull
     @Size(max = 20)
-    @Column(name = "contact_phone", length = 20)
+    @Column(nullable = false)
     private String contactPhone;
 
+    @NotNull
     @Size(max = 100)
-    @Column(name = "contact_email", length = 100)
+    @Column(nullable = false)
     private String contactEmail;
 
+    @NotNull
     @Size(max = 100)
-    @Column(name = "contact_person", length = 100)
+    @Column(nullable = false)
     private String contactPerson;
 
+    @NotNull
     @Size(max = 255)
-    @Column(name = "main_activity", length = 255)
+    @Column(nullable = false)
     private String mainActivity;
 
+    @NotNull
     @Size(max = 255)
-    @Column(name = "company_url", length = 255)
+    @Column(nullable = false)
     private String companyUrl;
 
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InternshipOffer> internshipOffers;
+
     @Lob
-    @Column(name = "pdf")
     private byte[] pdf;
 }

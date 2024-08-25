@@ -2,10 +2,12 @@ package br.edu.ifpb.pweb2.estagion.controller;
 
 import br.edu.ifpb.pweb2.estagion.model.Company;
 import br.edu.ifpb.pweb2.estagion.service.CompanyService;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.stereotype.*;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -34,7 +36,7 @@ public class AuthCompanyController {
 
         Company companyCnpj = service.findByCnpj(company.getCnpj());
 
-        if (companyCnpj != null){
+        if (companyCnpj != null) {
             modelAndView.addObject("company", company);
             modelAndView.addObject("errorMessage", "CNPJ já existe no banco.");
             return modelAndView;
@@ -46,10 +48,11 @@ public class AuthCompanyController {
     }
 
     @PostMapping("/login")
-    public ModelAndView processLogin(String email, String password, ModelAndView modelAndView, RedirectAttributes redirectAttributes) {
+    public ModelAndView processLogin(String email, String password, ModelAndView modelAndView, RedirectAttributes redirectAttributes, HttpSession session) {
         Company company = service.tryAuthenticate(email, password);
 
         if (company != null) {
+            session.setAttribute("loggedInCompany", company.getId());
             modelAndView.setViewName("redirect:/companies");
             modelAndView.addObject("company", company);
         } else {
