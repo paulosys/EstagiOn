@@ -5,9 +5,7 @@ import br.edu.ifpb.pweb2.estagion.service.InternshipOfferService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller()
@@ -37,6 +35,12 @@ public class InternshipOffersController {
         Integer companyId = (Integer) session.getAttribute("loggedInCompany");
         internshipOfferService.save(internshipOffer, companyId);
 
+        return "redirect:/companies/internship-offers";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable int id) {
+        internshipOfferService.delete(id);
         return "redirect:/companies/internship-offers";
     }
 
