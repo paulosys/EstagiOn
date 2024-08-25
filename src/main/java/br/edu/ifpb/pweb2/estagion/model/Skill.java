@@ -19,4 +19,8 @@ public class Skill {
     @NotNull
     @Size(min = 1, max = 50)
     private String name;
+
+    public Skill(String name) {
+        this.name = name;
+    }
 }
