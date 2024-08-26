@@ -38,10 +38,18 @@ public class StudentController {
     @GetMapping("/list-internship-offers")
     public ModelAndView listIntershipOffers(
             @RequestParam("studentId") Integer studentId,
+            @RequestParam(value = "weeklyWorkload", required = false) String weeklyWorkload,
             ModelAndView modelAndView
     ) {
+        List<InternshipOffer> internshipOffers;
+        if (weeklyWorkload != null && !weeklyWorkload.isEmpty()) {
+            internshipOffers = internshipOfferService.findByWeeklyWorkload(weeklyWorkload);
+        } else {
+            internshipOffers =  internshipOfferService.findAll();
+        }
+
         modelAndView.setViewName("students/list-internship-offers");
-        modelAndView.addObject("internshipOffers", internshipOfferService.findAll());
+        modelAndView.addObject("internshipOffers", internshipOffers);
         modelAndView.addObject("studentId", studentId);
         return modelAndView;
     }

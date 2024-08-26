@@ -2,6 +2,7 @@ package br.edu.ifpb.pweb2.estagion.service;
 
 import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
 import br.edu.ifpb.pweb2.estagion.repositories.InternshipOfferRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +38,10 @@ public class InternshipOfferService {
 
         company.getInternshipOffers().add(offer);
         companyService.save(company);
+    }
+
+    @Transactional
+    public List<InternshipOffer> findByWeeklyWorkload(String weeklyWorkload) {
+        return internshipOfferRepository.findByWeeklyWorkload(weeklyWorkload);
     }
 }
