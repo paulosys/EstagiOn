@@ -2,18 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Painel do aluno</title>
+    <title>Aplicação Realizada com Sucesso</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        .dashboard-card {
+        .success-message {
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
         }
-
-        .dashboard-card:hover {
-            transform: translateY(-5px);
+        .success-message h2 {
+            color: #28a745;
         }
     </style>
 </head>
@@ -28,7 +29,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Olá, <span th:text="${student.getFirstName()}"></span></a>
+                    <a class="nav-link" href="/students/list-internship-offers">Voltar à Lista de Ofertas</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Sair</a>
@@ -38,36 +39,14 @@
     </nav>
 </header>
 
-<div class="container mt-5">
-    <h2 class="mb-4">Bem-vindo(a), <span th:text="${student.getFirstName()}"></span>!</h2>
-
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card dashboard-card bg-light">
-                <div class="card-body text-center">
-                    <i class="fas fa-briefcase fa-3x text-primary"></i>
-                    <h5 class="card-title mt-3">Gerenciar Ofertas</h5>
-                    <p class="card-text">Visualize ofertas de estágio.</p>
-
-                    <br>
-
-                    <a th:href="@{/students/list-internship-offers(studentId=${student.id})}" class="btn btn-primary">Acessar</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card dashboard-card bg-light">
-                <div class="card-body text-center">
-                    <i class="fas fa-file-alt fa-3x text-info"></i>
-                    <h5 class="card-title mt-3">Estágios</h5>
-                    <p class="card-text">Acompanhe o andamento dos estágios em aberto.</p>
-                    <a th:href="@{#}" class="btn btn-info">Acessar</a>
-                </div>
-            </div>
-        </div>
+<div class="container">
+    <div class="success-message">
+        <h2>Inscrição Realizada com Sucesso!</h2>
+        <p>Sua inscrição foi realizada com sucesso. Você pode visualizar a lista de vagas novamente.</p>
+        <a th:href="@{/students/list-internship-offers(studentId=${studentId})}" class="btn btn-primary">Ver Lista de Ofertas</a>
     </div>
 </div>
+
 <footer class="footer mt-5 py-3 bg-light fixed-bottom">
     <div class="container">
         <p class="text-center mb-0">© 2024 EstagiOn</p>
