@@ -1,9 +1,11 @@
 package br.edu.ifpb.pweb2.estagion.service;
 
 import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
+import br.edu.ifpb.pweb2.estagion.model.StatusInternshipOffer;
 import br.edu.ifpb.pweb2.estagion.repositories.InternshipOfferRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +23,12 @@ public class InternshipOfferService {
 
     public List<InternshipOffer> findAll() {
         return internshipOfferRepository.findAll();
+    }
+
+    @Transactional
+    public List<InternshipOffer> findByStatus(StatusInternshipOffer status) {
+        List<InternshipOffer> result = internshipOfferRepository.findByStatus(status);
+        return result;
     }
 
     public InternshipOffer findById(int id) {

@@ -27,8 +27,6 @@ public class InternshipOffersController {
         return modelAndView;
     }
 
-
-
     @GetMapping("/create")
     public ModelAndView showRegisterForm(ModelAndView modelAndView) {
         modelAndView.setViewName("companies/create-internship-offer");
