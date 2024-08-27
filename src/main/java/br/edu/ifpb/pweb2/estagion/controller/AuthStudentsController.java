@@ -1,6 +1,5 @@
 package br.edu.ifpb.pweb2.estagion.controller;
 
-import br.edu.ifpb.pweb2.estagion.model.Skill;
 import br.edu.ifpb.pweb2.estagion.model.Student;
 import br.edu.ifpb.pweb2.estagion.service.SkillService;
 import br.edu.ifpb.pweb2.estagion.service.StudentService;
@@ -11,11 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/auth/student")

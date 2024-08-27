@@ -6,6 +6,7 @@
     <title>EstagiOn - Registro do Aluno</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" />
 </head>
 <body>
 <header class="jumbotron jumbotron-fluid">
@@ -27,57 +28,58 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="firstName">Primeiro Nome</label>
-                                <input type="text" class="form-control" id="firstName" name="firstName" required>
+                                <input type="text" class="form-control" id="firstName" name="firstName" th:field="*{firstName}" required>
                                 <div class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label for="lastName">Último Nome</label>
-                                <input type="text" class="form-control" id="lastName" name="lastName" required>
+                                <input type="text" class="form-control" id="lastName" name="lastName" th:field="*{lastName}" required>
                                 <div class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <input type="email" class="form-control" id="email" name="email" th:field="*{email}" required>
                                 <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="cpf">CPF</label>
-                                <input type="text" class="form-control" id="cpf" name="cpf" required>
+                                <input type="text" class="form-control" id="cpf" name="cpf" th:field="*{cpf}" required>
                                 <div class="text-danger" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="institution">Faculdade</label>
-                                <input type="text" class="form-control" id="institution" name="institution" required>
+                                <input type="text" class="form-control" id="institution" name="institution" th:field="*{institution}" required>
                                 <div class="text-danger" th:if="${#fields.hasErrors('institution')}" th:errors="*{institution}"></div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="course">Curso</label>
-                                <input type="text" class="form-control" id="course" name="course" required>
+                                <input type="text" class="form-control" id="course" name="course" th:field="*{course}" required>
                                 <div class="text-danger" th:if="${#fields.hasErrors('course')}" th:errors="*{course}"></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="username">Nome de Usuário</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
+                            <input type="text" class="form-control" id="username" name="username" th:field="*{username}" required>
                             <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
                         </div>
                         <div class="form-group">
                             <label for="password">Senha</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <input type="password" class="form-control" id="password" name="password" th:field="*{password}" required>
                             <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
                         </div>
                         <h4>Habilidades e Competências</h4>
                         <div class="form-group">
-                            <label for="habilidades">Selecione suas habilidades e competências:</label>
-                            <select class="form-control" id="habilidades" name="habilidades" multiple required>
+                            <label for="skills">Selecione suas habilidades e competências:</label>
+                            <select class="form-control" id="skills" name="skills" multiple="multiple" required>
                                 <option th:each="skill: ${skills}"
                                         th:value="${skill.getId()}"
-                                        th:text="${skill.getName()}"></option>
+                                        th:text="${skill.getName()}"
+                                ></option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Registrar</button>
@@ -91,7 +93,7 @@
     </div>
 </section>
 
-<footer class="footer mt-5 py-3 bg-light fixed-bottom">
+<footer class="footer mt-5 py-3 bg-light">
     <div class="container">
         <p class="text-center mb-0">© 2024 EstagiOn</p>
     </div>
@@ -100,5 +102,16 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#skills').select2({
+            placeholder: "Digite para buscar...",
+            allowClear: true
+        });
+    });
+</script>
+
 </body>
 </html>
