@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface InternshipOfferRepository extends JpaRepository<InternshipOffer, Integer> {
     List<InternshipOffer> findByWeeklyWorkload(String weeklyWorkload);
+    List<InternshipOffer> findByStatus_Name(String name);
 }

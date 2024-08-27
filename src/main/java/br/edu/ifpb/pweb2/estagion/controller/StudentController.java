@@ -45,7 +45,9 @@ public class StudentController {
         if (weeklyWorkload != null && !weeklyWorkload.isEmpty()) {
             internshipOffers = internshipOfferService.findByWeeklyWorkload(weeklyWorkload);
         } else {
-            internshipOffers =  internshipOfferService.findAll();
+            internshipOffers =  internshipOfferService.findAllByStatus("CRIADO");
+            // internshipOffers =  internshipOfferService.findAll();
+            internshipOffers.forEach(i -> System.out.println(i.getStatus().getName()));
         }
 
         modelAndView.setViewName("students/list-internship-offers");

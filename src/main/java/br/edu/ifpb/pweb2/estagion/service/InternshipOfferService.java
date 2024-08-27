@@ -23,6 +23,11 @@ public class InternshipOfferService {
         return internshipOfferRepository.findAll();
     }
 
+    @Transactional
+    public List<InternshipOffer> findAllByStatus(String status) {
+        return internshipOfferRepository.findByStatus_Name(status);
+    }
+
     public InternshipOffer findById(int id) {
         return internshipOfferRepository.findById(id).orElse(null);
     }
