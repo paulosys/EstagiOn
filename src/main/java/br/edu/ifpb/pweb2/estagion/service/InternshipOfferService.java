@@ -1,5 +1,6 @@
 package br.edu.ifpb.pweb2.estagion.service;
 
+import br.edu.ifpb.pweb2.estagion.model.Company;
 import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
 import br.edu.ifpb.pweb2.estagion.model.StatusInternshipOffer;
 import br.edu.ifpb.pweb2.estagion.repositories.InternshipOfferRepository;
@@ -23,6 +24,12 @@ public class InternshipOfferService {
 
     public List<InternshipOffer> findAll() {
         return internshipOfferRepository.findAll();
+    }
+
+    @Transactional
+    public  List<InternshipOffer> findByCompanyId(Integer company) {
+        List<InternshipOffer> result = internshipOfferRepository.findByCompanyId(company);
+        return result;
     }
 
     @Transactional
