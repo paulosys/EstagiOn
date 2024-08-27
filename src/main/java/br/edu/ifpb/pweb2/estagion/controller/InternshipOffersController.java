@@ -20,10 +20,16 @@ public class InternshipOffersController {
     private InternshipOfferService internshipOfferService;
 
     @GetMapping
-    public ModelAndView listOffers(ModelAndView modelAndView) {
-        modelAndView.setViewName("companies/list-internship-offers");
+    public ModelAndView listOffers(HttpSession session, ModelAndView modelAndView) {
+        Integer companyId = (Integer) session.getAttribute("loggedInCompany");
 
-        modelAndView.addObject("internshipOffers", internshipOfferService.findAll());
+        if (companyId != null) {
+            modelAndView.setViewName("companies/list-internship-offers");
+            modelAndView.addObject("internshipOffers", internshipOfferService.findByCompanyId(companyId));
+        } else {
+            modelAndView.setViewName("redirect:/auth/company/login");
+        }
+
         return modelAndView;
     }
 
