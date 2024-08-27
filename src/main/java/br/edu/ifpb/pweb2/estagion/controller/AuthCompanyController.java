@@ -3,8 +3,10 @@ package br.edu.ifpb.pweb2.estagion.controller;
 import br.edu.ifpb.pweb2.estagion.model.Company;
 import br.edu.ifpb.pweb2.estagion.service.CompanyService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,14 +33,18 @@ public class AuthCompanyController {
     }
 
     @PostMapping("/register")
-    public ModelAndView processRegistration(Company company) {
+    public ModelAndView processRegistration(@Valid Company company, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView("auth/company/sign-up");
+
+        if (bindingResult.hasErrors()) {
+            return modelAndView;
+        }
 
         Company companyCnpj = service.findByCnpj(company.getCnpj());
 
         if (companyCnpj != null) {
             modelAndView.addObject("company", company);
-            modelAndView.addObject("errorMessage", "CNPJ já existe no banco.");
+            bindingResult.rejectValue("cnpj", "error.cnpj", "Já existe uma empresa com o CNPJ cadastrado.");
             return modelAndView;
         }
 
