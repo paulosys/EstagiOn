@@ -16,12 +16,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
-    @Size(min = 6, max = 100)
+    @NotNull(message = "A senha é obrigatória")
+    @Size(min = 6, max = 100, message = "A senha deve ter entre 6 e 100 caracteres")
     private String password;
 
-    @NotNull
-    @Email
-    @Size(max = 100)
+    @NotNull(message = "O email é obrigatório")
+    @Email(message = "O email deve ser válido")
+    @Size(max = 100, message = "O email deve ter no máximo 100 caracteres")
     private String email;
 }

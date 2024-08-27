@@ -28,45 +28,48 @@
                             <div class="form-group col-md-6">
                                 <label for="firstName">Primeiro Nome</label>
                                 <input type="text" class="form-control" id="firstName" name="firstName" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label for="lastName">Último Nome</label>
                                 <input type="text" class="form-control" id="lastName" name="lastName" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control" id="email" name="email" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="cpf">CPF</label>
                                 <input type="text" class="form-control" id="cpf" name="cpf" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="institution">Faculdade</label>
                                 <input type="text" class="form-control" id="institution" name="institution" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('institution')}" th:errors="*{institution}"></div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="course">Curso</label>
                                 <input type="text" class="form-control" id="course" name="course" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('course')}" th:errors="*{course}"></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="username">Nome de Usuário</label>
                             <input type="text" class="form-control" id="username" name="username" required>
+                            <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
                         </div>
                         <div class="form-group">
                             <label for="password">Senha</label>
                             <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="confirmaSenha">Confirmar Senha</label>
-                            <input type="password" class="form-control" id="confirmaSenha" name="confirmaSenha"
-                                   required>
+                            <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
                         </div>
                         <h4>Habilidades e Competências</h4>
                         <div class="form-group">
