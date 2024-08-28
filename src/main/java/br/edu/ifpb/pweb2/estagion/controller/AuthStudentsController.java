@@ -44,6 +44,7 @@ public class AuthStudentsController {
             ModelAndView modelAndView) {
 
         if (bindingResult.hasErrors()) {
+            modelAndView.addObject("skills", skillService.findAll());
             modelAndView.setViewName("auth/student/sign-up");
             return modelAndView;
         }
