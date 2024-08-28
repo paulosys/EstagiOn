@@ -3,8 +3,10 @@ package br.edu.ifpb.pweb2.estagion.controller;
 import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
 import br.edu.ifpb.pweb2.estagion.service.InternshipOfferService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +43,12 @@ public class InternshipOffersController {
     }
 
     @PostMapping("/create")
-    public String createInternshipOffer(InternshipOffer internshipOffer, HttpSession session) {
+    public String createInternshipOffer(@Valid InternshipOffer internshipOffer, BindingResult bindingResult, HttpSession session) {
+
+        if (bindingResult.hasErrors()) {
+            return "companies/create-internship-offer";
+        }
+
         Integer companyId = (Integer) session.getAttribute("loggedInCompany");
         internshipOfferService.save(internshipOffer, companyId);
 
