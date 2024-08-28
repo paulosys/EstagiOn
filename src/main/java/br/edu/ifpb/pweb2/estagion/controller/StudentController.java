@@ -75,6 +75,7 @@ public class StudentController {
         modelAndView.setViewName("students/list-applied-internships");
         modelAndView.addObject("appliedInternships", appliedInternships);
         modelAndView.addObject("studentId", studentId);
+        modelAndView.addObject("logoutUrl", "/auth/student/login");
         return modelAndView;
     }
 
