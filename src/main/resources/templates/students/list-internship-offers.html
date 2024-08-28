@@ -8,6 +8,9 @@
 </head>
 <body>
 
+<div th:insert="fragments/header-and-footer-dashboards.html :: header"></div>
+
+
 <div class="container mt-5">
     <h2 class="mb-4">Ofertas de Estágio</h2>
 
@@ -34,6 +37,7 @@
             <th>Atividade Principal</th>
             <th>Carga Horária</th>
             <th>Status</th>
+            <th>Empresa</th>
             <th>Ações</th>
         </tr>
         </thead>
@@ -45,6 +49,7 @@
             <td>
                 <span th:text="${offer.status.getName()}" class="badge badge-primary"/>
             </td>
+            <td th:text="${offer.company.getName()}"></td>
             <td>
                 <a th:href="@{/students/view-internship-offer(internshipOfferId=${offer.id}, studentId=${studentId})}"
                    class="btn btn-sm btn-warning"
@@ -59,11 +64,8 @@
     </table>
 </div>
 
-<footer class="footer mt-5 py-3 bg-light fixed-bottom">
-    <div class="container">
-        <p class="text-center mb-0">© 2024 EstagiOn</p>
-    </div>
-</footer>
+<div th:insert="fragments/header-and-footer-dashboards.html :: footer"></div>
+
 
 </body>
 </html>

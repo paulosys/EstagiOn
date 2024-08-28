@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
+<div th:insert="fragments/header-and-footer-dashboards.html :: header"></div>
 
 <div class="container mt-5">
-    <h2 class="mb-4">Ofertas de Estágio</h2>
+    <h2 class="mb-4">Candidatos e Ofertas de Estágio</h2>
 
     <table class="table table-striped">
         <thead>
@@ -17,7 +18,10 @@
             <th>Aluno</th>
             <th>Empresa</th>
             <th>Título da vaga</th>
-            <th>Ações</th>
+            <th>Ver Empresa</th>
+            <th>Ver Candidato</th>
+            <th>Ver Oferta de estágio</th>
+
         </tr>
         </thead>
         <tbody>
@@ -33,6 +37,8 @@
                    title="Visualizar Empresa">
                     <i class="fas fa-regular fa-eye"></i>
                 </a>
+            </td>
+            <td>
                 <a th:href="@{/coordinator/view-student(studentId=${app.student.id})}"
                    class="btn btn-sm btn-warning"
                    data-toggle="tooltip"
@@ -41,16 +47,21 @@
                     <i class="fas fa-regular fa-eye"></i>
                 </a>
             </td>
+            <td>
+                <a th:href="@{/coordinator/view-offer(offerId=${app.internshipOffer.id})}"
+                   class="btn btn-sm btn-warning"
+                   data-toggle="tooltip"
+                   data-placement="top"
+                   title="Visualizar Oferta">
+                    <i class="fas fa-regular fa-eye"></i>
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>
 </div>
 
-<footer class="footer mt-5 py-3 bg-light fixed-bottom">
-    <div class="container">
-        <p class="text-center mb-0">© 2024 EstagiOn</p>
-    </div>
-</footer>
+<div th:insert="fragments/header-and-footer-dashboards.html :: footer"></div>
 
 </body>
 </html>
