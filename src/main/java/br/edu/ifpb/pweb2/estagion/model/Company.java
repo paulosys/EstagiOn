@@ -1,6 +1,7 @@
 package br.edu.ifpb.pweb2.estagion.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -16,43 +17,45 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Company extends User {
-    @NotNull
-    @Size(min = 3, max = 50)
-    @Column(nullable = false)
+
+    @NotNull(message = "O nome da empresa é obrigatório")
+    @Size(max = 50, message = "O nome da empresa deve ter até 50 caracteres")
+    @Column(nullable = false, length = 50)
     private String name;
 
-    @NotNull
-    @Size(max = 14)
-    @Column(nullable = false)
+    @NotNull(message = "O CNPJ é obrigatório")
+    @Size(min = 14, max = 14, message = "O CNPJ deve ter exatamente 14 caracteres")
+    @Column(nullable = false, length = 14)
     private String cnpj;
 
-    @NotNull
-    @Size(max = 255)
+    @NotNull(message = "O endereço é obrigatório")
+    @Size(max = 255, message = "O endereço deve ter no máximo 255 caracteres")
     @Column(nullable = false)
     private String address;
 
-    @NotNull
-    @Size(max = 20)
-    @Column(nullable = false)
+    @NotNull(message = "O telefone de contato é obrigatório")
+    @Size(max = 20, message = "O telefone de contato deve ter no máximo 20 caracteres")
+    @Column(nullable = false, length = 20)
     private String contactPhone;
 
-    @NotNull
-    @Size(max = 100)
-    @Column(nullable = false)
+    @NotNull(message = "O email de contato é obrigatório")
+    @Email(message = "O email de contato deve ser válido")
+    @Size(max = 100, message = "O email de contato deve ter no máximo 100 caracteres")
+    @Column(nullable = false, length = 100)
     private String contactEmail;
 
-    @NotNull
-    @Size(max = 100)
-    @Column(nullable = false)
+    @NotNull(message = "A pessoa de contato é obrigatória")
+    @Size(max = 100, message = "A pessoa de contato deve ter no máximo 100 caracteres")
+    @Column(nullable = false, length = 100)
     private String contactPerson;
 
-    @NotNull
-    @Size(max = 255)
+    @NotNull(message = "A principal atividade é obrigatória")
+    @Size(max = 255, message = "A principal atividade deve ter no máximo 255 caracteres")
     @Column(nullable = false)
     private String mainActivity;
 
-    @NotNull
-    @Size(max = 255)
+    @NotNull(message = "O URL da empresa é obrigatório")
+    @Size(max = 255, message = "O URL da empresa deve ter no máximo 255 caracteres")
     @Column(nullable = false)
     private String companyUrl;
 

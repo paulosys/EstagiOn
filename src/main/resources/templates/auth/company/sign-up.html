@@ -28,43 +28,36 @@
                             <div class="form-group col-md-6">
                                 <label for="name">Nome da empresa</label>
                                 <input type="text" class="form-control" id="name" th:field="*{name}" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                             </div>
-
-<!--                            <div class="form-group col-md-6">-->
-<!--                                <label for="cnpj">CNPJ da empresa</label>-->
-<!--                                <input type="text" class="form-control" id="cnpj" name="cnpj" required>-->
-<!--                                <div th:if="${errorMessage}" class="error-message">-->
-<!--                                    <p th:text="${errorMessage}"></p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
                             <div class="form-group col-md-6">
                                 <label for="cnpj">CNPJ da empresa</label>
                                 <input type="text" class="form-control" id="cnpj" th:field="*{cnpj}" required>
-                                <!-- Mensagem de erro específica para o campo CNPJ -->
-                                <div th:if="${errorMessage}" class="error-message text-danger">
-                                    <p th:text="${errorMessage}"></p>
-                                </div>
+                                <div class="text-danger" th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}"></div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="address">Endereço da empresa</label>
                                 <input type="text" class="form-control" id="address" th:field="*{address}" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="contactPhone">Telefone de contato</label>
                                 <input type="tel" class="form-control" id="contactPhone" th:field="*{contactPhone}" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('contactPhone')}" th:errors="*{contactPhone}"></div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="contactEmail">Email de contato</label>
                                 <input type="email" class="form-control" id="contactEmail" th:field="*{contactEmail}" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('contactEmail')}" th:errors="*{contactEmail}"></div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="contactPerson">Pessoa de contato</label>
                                 <input type="text" class="form-control" id="contactPerson" th:field="*{contactPerson}" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('contactPerson')}" th:errors="*{contactPerson}"></div>
                             </div>
                         </div>
 
@@ -72,28 +65,26 @@
                             <div class="form-group col-md-6">
                                 <label for="mainActivity">Atividade principal</label>
                                 <input type="text" class="form-control" id="mainActivity" th:field="*{mainActivity}" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('mainActivity')}" th:errors="*{mainActivity}"></div>
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label for="companyUrl">URL da empresa</label>
                                 <input type="url" class="form-control" id="companyUrl" th:field="*{companyUrl}">
+                                <div class="text-danger" th:if="${#fields.hasErrors('companyUrl')}" th:errors="*{companyUrl}"></div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email da conta</label>
                             <input type="email" class="form-control" id="email" th:field="*{email}" required>
+                            <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                         </div>
                         <div class="form-group">
                             <label for="password">Senha</label>
                             <input type="password" class="form-control" id="password" name="password" required>
+                            <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
                         </div>
-                        <div class="form-group">
-                            <label for="confirmaSenha">Confirmar Senha</label>
-                            <input type="password" class="form-control" id="confirmaSenha" name="confirmaSenha"
-                                   required>
-                        </div>
-
                         <div class="form-group">
                             <label for="pdf">Documento de comprovação de endereço (PDF)</label>
                             <input type="file" class="form-control-file" id="pdf" name="pdf" accept=".pdf" required>
@@ -110,7 +101,7 @@
     </div>
 </section>
 
-<footer class="footer mt-5 py-3 bg-light fixed-bottom">
+<footer class="footer mt-5 py-3 bg-light">
     <div class="container">
         <p class="text-center mb-0">© 2024 EstagiOn</p>
     </div>
