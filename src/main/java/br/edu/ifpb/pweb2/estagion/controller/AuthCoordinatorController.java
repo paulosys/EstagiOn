@@ -19,7 +19,6 @@ public class AuthCoordinatorController {
 
     @GetMapping("/login")
     public ModelAndView showLoginForm(ModelAndView modelAndView) {
-//        modelAndView.addObject("logoutUrl", "/estagion/auth/coordinator/login"); // Adiciona a variável ao Model
         modelAndView.setViewName("auth/coordinator/sign-in");
         return modelAndView;
     }

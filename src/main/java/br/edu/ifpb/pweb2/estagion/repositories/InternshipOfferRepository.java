@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-    @Repository
-    public interface InternshipOfferRepository extends JpaRepository<InternshipOffer, Integer> {
-        List<InternshipOffer> findByWeeklyWorkload(String weeklyWorkload);
-        List<InternshipOffer> findByStatus(StatusInternshipOffer status);
-        List<InternshipOffer> findByCompanyId(Integer id);
-    }
+@Repository
+public interface InternshipOfferRepository extends JpaRepository<InternshipOffer, Integer> {
+    List<InternshipOffer> findByWeeklyWorkload(String weeklyWorkload);
+    List<InternshipOffer> findByStatus(StatusInternshipOffer status);
+    List<InternshipOffer> findByCompanyId(Integer id);
+}

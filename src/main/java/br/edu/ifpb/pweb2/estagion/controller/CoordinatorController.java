@@ -46,6 +46,7 @@ public class CoordinatorController {
     ) {
         modelAndView.setViewName("coordinator/index");
         modelAndView.addObject("coordinator", coordinator);
+        modelAndView.addObject("logoutUrl", "/auth/coordinator/login");
 
         return modelAndView;
     }
@@ -58,6 +59,7 @@ public class CoordinatorController {
 
         modelAndView.setViewName("coordinator/list-application");
         modelAndView.addObject("applications", applicationService.findAllByStauts(EApplicationStatus.APPLIED));
+        modelAndView.addObject("logoutUrl", "/auth/coordinator/login");
         return modelAndView;
     }
 
@@ -69,6 +71,7 @@ public class CoordinatorController {
         modelAndView.setViewName("coordinator/view-company");
 
         modelAndView.addObject("company", companyService.findById(companyId));
+        modelAndView.addObject("logoutUrl", "/auth/coordinator/login");
         return modelAndView;
     }
 
@@ -80,6 +83,7 @@ public class CoordinatorController {
         modelAndView.setViewName("coordinator/view-student");
 
         modelAndView.addObject("student", studentService.findById(studentId));
+        modelAndView.addObject("logoutUrl", "/auth/coordinator/login");
         return modelAndView;
     }
 
@@ -91,6 +95,7 @@ public class CoordinatorController {
         modelAndView.setViewName("coordinator/view-offer");
 
         modelAndView.addObject("offer", _internshipOfferService.findById(offerId));
+        modelAndView.addObject("logoutUrl", "/auth/coordinator/login");
         return modelAndView;
     }
 
@@ -108,6 +113,8 @@ public class CoordinatorController {
 
         modelAndView.setViewName("coordinator/get-all-internships-offers");
         modelAndView.addObject("internshipOffers", internshipOffers);
+        modelAndView.addObject("logoutUrl", "/auth/coordinator/login");
+
         return modelAndView;
     }
 }

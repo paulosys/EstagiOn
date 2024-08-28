@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes da Oferta de Estágio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="fragments/header-and-footer-dashboards.html :: header"></div>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Detalhes da Oferta de Estágio</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${offer.title}">Título da Oferta</h5>
+            <p class="card-text">
+                <strong>Descrição:</strong> <span th:text="${offer.description}">Descrição da Oferta</span>
+            </p>
+            <p class="card-text">
+                <strong>Atividade Principal:</strong> <span th:text="${offer.mainActivity}">Atividade Principal</span>
+            </p>
+            <p class="card-text">
+                <strong>Carga Horária Semanal:</strong> <span th:text="${offer.weeklyWorkload}">Carga Horária Semanal</span>
+            </p>
+            <p class="card-text">
+                <strong>Bolsa Auxílio:</strong>
+                <span th:text="${offer.stipendAmount != null ? offer.stipendAmount : 'Não informado'}">Bolsa Auxílio</span>
+            </p>
+            <p class="card-text">
+                <strong>Vale Transporte:</strong>
+                <span th:text="${offer.transportVoucher != null && offer.transportVoucher ? 'Sim' : 'Não'}">Vale Transporte</span>
+            </p>
+            <p class="card-text">
+                <strong>Status:</strong> <span th:text="${offer.status.name}">Status da Oferta</span>
+            </p>
+            <p class="card-text">
+                <strong>Pré-requisitos:</strong> <span th:text="${offer.prerequisites}">Pré-requisitos</span>
+            </p>
+            <p class="card-text">
+                <strong>Habilidades Requeridas:</strong> <span th:text="${offer.requiredSkills}">Habilidades Requeridas</span>
+            </p>
+            <p class="card-text">
+                <strong>Habilidades Desejadas:</strong> <span th:text="${offer.desiredSkills}">Habilidades Desejadas</span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div th:insert="fragments/header-and-footer-dashboards.html :: footer"></div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

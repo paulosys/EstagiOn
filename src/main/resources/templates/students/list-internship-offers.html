@@ -37,6 +37,7 @@
             <th>Atividade Principal</th>
             <th>Carga Horária</th>
             <th>Status</th>
+            <th>Empresa</th>
             <th>Ações</th>
         </tr>
         </thead>
@@ -48,6 +49,7 @@
             <td>
                 <span th:text="${offer.status.getName()}" class="badge badge-primary"/>
             </td>
+            <td th:text="${offer.company.getName()}"></td>
             <td>
                 <a th:href="@{/students/view-internship-offer(internshipOfferId=${offer.id}, studentId=${studentId})}"
                    class="btn btn-sm btn-warning"

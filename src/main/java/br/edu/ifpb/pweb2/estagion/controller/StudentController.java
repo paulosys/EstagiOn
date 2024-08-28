@@ -57,6 +57,7 @@ public class StudentController {
         modelAndView.setViewName("students/list-internship-offers");
         modelAndView.addObject("internshipOffers", internshipOffers);
         modelAndView.addObject("studentId", studentId);
+        modelAndView.addObject("logoutUrl", "/auth/student/login");
         return modelAndView;
     }
 
@@ -70,6 +71,7 @@ public class StudentController {
 
         modelAndView.addObject("internshipOffer", internshipOfferService.findById(internshipOfferId));
         modelAndView.addObject("studentId", studentId);
+        modelAndView.addObject("logoutUrl", "/auth/student/login");
         return modelAndView;
     }
 
@@ -81,7 +83,7 @@ public class StudentController {
         List<InternshipOffer> intershiOffers = internshipOfferService.findAll();
         modelAndView.setViewName("students/offers");
         modelAndView.addObject("offers", intershiOffers);
-
+        modelAndView.addObject("logoutUrl", "/auth/student/login");
         return modelAndView;
     }
 
@@ -94,6 +96,7 @@ public class StudentController {
 
         modelAndView.setViewName("students/application-success");
         modelAndView.addObject("studentId", studentId);
+        modelAndView.addObject("logoutUrl", "/auth/student/login");
         return modelAndView;
     }
 
