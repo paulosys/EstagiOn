@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Listagem de Ofertas de Estágio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Estágios Inscritos</h2>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Empresa</th>
+            <th>Carga Horária</th>
+            <th>Atividade Principal</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="appliedInternship : ${appliedInternships}">
+            <td th:text="${appliedInternship.internshipOffer.title}"></td>
+            <td th:text="${appliedInternship.internshipOffer.company.name}"></td>
+            <td th:text="${appliedInternship.internshipOffer.weeklyWorkload}"></td>
+            <td th:text="${appliedInternship.internshipOffer.mainActivity}"></td>
+            <td>
+                <span th:text="${appliedInternship.stauts}" class="badge badge-primary"/>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer class="footer mt-5 py-3 bg-light fixed-bottom">
+    <div class="container">
+        <p class="text-center mb-0">© 2024 EstagiOn</p>
+    </div>
+</footer>
+
+</body>
+</html>

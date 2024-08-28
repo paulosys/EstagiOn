@@ -1,9 +1,11 @@
 package br.edu.ifpb.pweb2.estagion.controller;
 
+import br.edu.ifpb.pweb2.estagion.model.Application;
 import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
 import br.edu.ifpb.pweb2.estagion.model.Student;
 import br.edu.ifpb.pweb2.estagion.service.ApplicationService;
 import br.edu.ifpb.pweb2.estagion.service.InternshipOfferService;
+import br.edu.ifpb.pweb2.estagion.service.StudentInternshipsService;
 import br.edu.ifpb.pweb2.estagion.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,9 @@ public class StudentController {
 
     @Autowired
     private InternshipOfferService internshipOfferService;
+
+    @Autowired
+    private StudentInternshipsService studentInternshipsService;
 
     @Autowired
     private ApplicationService applicationService;
@@ -45,11 +50,26 @@ public class StudentController {
         if (weeklyWorkload != null && !weeklyWorkload.isEmpty()) {
             internshipOffers = internshipOfferService.findByWeeklyWorkload(weeklyWorkload);
         } else {
-            internshipOffers =  internshipOfferService.findAll();
+            internshipOffers =  internshipOfferService.findAllByStatus("CRIADO");
+            // internshipOffers =  internshipOfferService.findAll();
+            internshipOffers.forEach(i -> System.out.println(i.getStatus().getName()));
         }
 
         modelAndView.setViewName("students/list-internship-offers");
         modelAndView.addObject("internshipOffers", internshipOffers);
+        modelAndView.addObject("studentId", studentId);
+        return modelAndView;
+    }
+
+    @GetMapping("/list-applied-internships")
+    public ModelAndView listAppliedInternships(
+            @RequestParam("studentId") Integer studentId,
+            ModelAndView modelAndView
+    ) {
+        List<Application> appliedInternships =  studentInternshipsService.findByStudentId(studentId);
+
+        modelAndView.setViewName("students/list-applied-internships");
+        modelAndView.addObject("appliedInternships", appliedInternships);
         modelAndView.addObject("studentId", studentId);
         return modelAndView;
     }
