@@ -27,7 +27,7 @@ public class ApplicationService {
         Optional<Student> student = studentRepository.findById(studentId);
         Optional<InternshipOffer> internshipOffer = internshipOfferRepository.findById(internshipOfferId);
 
-        if (student != null && internshipOffer != null) {
+        if (student.isPresent() && internshipOffer.isPresent()) {
             Application application = new Application();
 
             application.setStudent(student.get());
