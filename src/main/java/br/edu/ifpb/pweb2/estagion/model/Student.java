@@ -14,26 +14,28 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class Student extends User{
-    @NotNull
-    @Size(min = 11, max = 11)
+    @NotNull(message = "O CPF é obrigatório")
+    @Size(min = 11, max = 11, message = "O CPF deve ter exatamente 11 caracteres")
     private String cpf;
 
-    @NotNull
-    @Size(min = 3, max = 50)
+    @NotNull(message = "O nome de usuário é obrigatório")
+    @Size(min = 3, max = 50, message = "O nome de usuário deve ter entre 3 e 50 caracteres")
     private String username;
 
-    @NotNull
-    @Size(min = 2, max = 50)
+    @NotNull(message = "O primeiro nome é obrigatório")
+    @Size(min = 2, max = 50, message = "O primeiro nome deve ter entre 2 e 50 caracteres")
     private String firstName;
 
-    @NotNull
-    @Size(min = 2, max = 50)
+    @NotNull(message = "O último nome é obrigatório")
+    @Size(min = 2, max = 50, message = "O último nome deve ter entre 2 e 50 caracteres")
     private String lastName;
 
-    @Size(max = 100)
+    @NotNull()
+    @Size(max = 100, message = "O curso deve ter no máximo 100 caracteres")
     private String course;
 
-    @Size(max = 100)
+    @NotNull()
+    @Size(max = 100, message = "A instituição deve ter no máximo 100 caracteres")
     private String institution;
 
     @ManyToMany
@@ -42,6 +44,5 @@ public class Student extends User{
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id")
     )
-
     private List<Skill> skills;
 }

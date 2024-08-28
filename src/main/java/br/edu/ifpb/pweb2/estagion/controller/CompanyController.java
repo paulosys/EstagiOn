@@ -14,11 +14,10 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
-    @GetMapping
+    @GetMapping()
     public ModelAndView showHome(ModelAndView modelAndView, Company company) {
         modelAndView.setViewName("companies/home");
         modelAndView.addObject("company", company);
-        // System.out.println(companyService.findById(2).getInternshipOffers());
         return modelAndView;
     }
 }
