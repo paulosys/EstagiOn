@@ -10,13 +10,6 @@ public class CoordinatorService {
 
     @Autowired
     private CoordinatorRepository coordinatorRepository;
-    public Coordinator findByEmail(String email) {
-        return coordinatorRepository.findByEmail(email).orElse(null);
-    }
-
-    public void save(Coordinator coordinator) {
-        coordinatorRepository.save(coordinator);
-    }
 
     public Coordinator tryAuthenticate(String email, String password) {
         Coordinator coordinator = coordinatorRepository.findByEmail(email).orElse(null);

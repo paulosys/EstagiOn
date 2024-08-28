@@ -23,30 +23,6 @@ public class AuthCoordinatorController {
         return modelAndView;
     }
 
-    @GetMapping("/register")
-    public ModelAndView showRegistrationForm(ModelAndView modelAndView) {
-        modelAndView.setViewName("auth/coordinator/sign-up");
-        modelAndView.addObject("coordinator", new Coordinator());
-        return modelAndView;
-    }
-
-    @PostMapping("/register")
-    public ModelAndView processRegistration(Coordinator coordinator) {
-        ModelAndView modelAndView = new ModelAndView("auth/coordinator/sign-up");
-
-        Coordinator coordinatorEmail = service.findByEmail(coordinator.getEmail());
-
-        if (coordinatorEmail != null) {
-            modelAndView.addObject("coordinator", coordinator);
-            modelAndView.addObject("errorMessage", "E-mail já existe no banco.");
-            return modelAndView;
-        }
-
-        service.save(coordinator);
-        modelAndView.setViewName("redirect:/auth/coordinator/login");
-        return modelAndView;
-    }
-
     @PostMapping("/login")
     public ModelAndView processLogin(String email, String password, ModelAndView modelAndView, RedirectAttributes redirectAttributes, HttpSession session) {
         Coordinator coordinator = service.tryAuthenticate(email, password);
