@@ -26,6 +26,7 @@ public class Application {
     @NotNull
     private InternshipOffer internshipOffer;
 
+    @Enumerated(EnumType.STRING)
     @NotNull
-    private String stauts;
+    private EApplicationStatus stauts;
 }
