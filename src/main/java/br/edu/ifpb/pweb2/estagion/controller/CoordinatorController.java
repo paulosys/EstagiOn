@@ -33,7 +33,6 @@ public class CoordinatorController {
     @Autowired
     private StudentService studentService;
 
-
     @Autowired
     private InternshipOfferService _internshipOfferService;
 
@@ -81,7 +80,20 @@ public class CoordinatorController {
         modelAndView.setViewName("coordinator/view-student");
 
         modelAndView.addObject("student", studentService.findById(studentId));
-      
+        return modelAndView;
+    }
+
+    @GetMapping("/view-offer")
+    public ModelAndView showoffer(
+            @RequestParam("offerId") Integer offerId,
+            ModelAndView modelAndView
+    ) {
+        modelAndView.setViewName("coordinator/view-offer");
+
+        modelAndView.addObject("offer", _internshipOfferService.findById(offerId));
+        return modelAndView;
+    }
+
     @GetMapping("/get-all-internship-offers")
     public ModelAndView GetAllInternshipOffers(ModelAndView modelAndView) {
         StatusInternshipOffer statusInternshipOffer = _statusInternshipOfferService.findById(1);

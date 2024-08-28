@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragmentos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<header th:fragment="header-main" class="jumbotron jumbotron-fluid">
+    <div class="container">
+<!--        <h1 class="display-4 text-center"> <a class="nav-link" th:href="${{}}"><strong>EstagiOn</strong></a></h1>-->
+        <h1 class="display-4 text-center">
+            <a class="nav-link" th:href="@{/}"><strong>EstagiOn</strong></a>
+        </h1>
+        <p class="lead text-center"><strong>Sua plataforma de estágios</strong></p>
+    </div>
+</header>
+
+<footer th:fragment="footer" class="footer mt-5 py-3 bg-light fixed-bottom">
+    <div class="container">
+        <p class="text-center mb-0">© 2024 EstagiOn</p>
+    </div>
+</footer>
+
+</body>
+</html>

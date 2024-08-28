@@ -1,9 +1,12 @@
 package br.edu.ifpb.pweb2.estagion.controller;
 
+import br.edu.ifpb.pweb2.estagion.model.Application;
 import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
+import br.edu.ifpb.pweb2.estagion.model.StatusInternshipOffer;
 import br.edu.ifpb.pweb2.estagion.model.Student;
 import br.edu.ifpb.pweb2.estagion.service.ApplicationService;
 import br.edu.ifpb.pweb2.estagion.service.InternshipOfferService;
+import br.edu.ifpb.pweb2.estagion.service.StatusInternshipOfferService;
 import br.edu.ifpb.pweb2.estagion.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +22,7 @@ import java.util.List;
 @RequestMapping("/students")
 public class StudentController {
     @Autowired
-    private StudentService studentService;
+    private StatusInternshipOfferService statusInternshipOfferService;
 
     @Autowired
     private InternshipOfferService internshipOfferService;
@@ -31,7 +34,7 @@ public class StudentController {
     public ModelAndView showHome(ModelAndView modelAndView, Student student) {
         modelAndView.setViewName("students/index");
         modelAndView.addObject("student", student);
-
+        modelAndView.addObject("logoutUrl", "/auth/student/login");
         return modelAndView;
     }
 
@@ -42,10 +45,13 @@ public class StudentController {
             ModelAndView modelAndView
     ) {
         List<InternshipOffer> internshipOffers;
+        StatusInternshipOffer statusInternshipOffer = statusInternshipOfferService.findById(1);
+
         if (weeklyWorkload != null && !weeklyWorkload.isEmpty()) {
             internshipOffers = internshipOfferService.findByWeeklyWorkload(weeklyWorkload);
         } else {
-            internshipOffers =  internshipOfferService.findAll();
+            internshipOffers =  internshipOfferService.findByStatus(statusInternshipOffer);
+            internshipOffers.forEach(i -> System.out.println(i.getStatus().getName()));
         }
 
         modelAndView.setViewName("students/list-internship-offers");

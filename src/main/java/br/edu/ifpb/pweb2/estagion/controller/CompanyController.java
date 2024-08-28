@@ -18,6 +18,7 @@ public class CompanyController {
     public ModelAndView showHome(ModelAndView modelAndView, Company company) {
         modelAndView.setViewName("companies/home");
         modelAndView.addObject("company", company);
+        modelAndView.addObject("logoutUrl", "/auth/company/login");
         return modelAndView;
     }
 }
