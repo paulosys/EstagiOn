@@ -10,9 +10,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Optional;
 
 @Controller()
 @RequestMapping("/companies/internship-offers")
@@ -59,6 +60,32 @@ public class InternshipOffersController {
     public String delete(@PathVariable int id) {
         internshipOfferService.delete(id);
         return "redirect:/companies/internship-offers";
+    }
+
+    @GetMapping("/{offerId}/applications")
+    public ModelAndView listApplicants(@PathVariable("offerId") Integer offerId, ModelAndView modelAndView) {
+        try {
+            Optional<InternshipOffer> optionalOffer = internshipOfferService.getOfferWithApplications(offerId);
+
+            if (optionalOffer.isEmpty()) {
+                modelAndView.setViewName("error/not-found");
+                modelAndView.addObject("message", "Oferta de estágio não encontrada.");
+                return modelAndView;
+            }
+
+            InternshipOffer offer = optionalOffer.get();
+            modelAndView.setViewName("companies/list-applicants");
+            modelAndView.addObject("internshipOffer", offer);
+            modelAndView.addObject("applications", offer.getApplications());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            modelAndView.setViewName("error/generic-error");
+            modelAndView.addObject("message", "Ocorreu um erro ao listar os candidatos.");
+        }
+
+        return modelAndView;
     }
 
 }
