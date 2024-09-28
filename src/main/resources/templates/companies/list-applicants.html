@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Candidatos à Oferta de Estágio</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div th:insert="fragments/header-and-footer-dashboards.html :: header"></div>
+
+<div class="container mt-5">
+  <h2 class="mb-4" th:text="'Candidatos para a oferta: ' + ${internshipOffer.title}"></h2>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Nome do Aluno</th>
+      <th>Status da Candidatura</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="app : ${applications}">
+      <td th:text="${app.student.firstName}"></td>
+      <td th:text="${app.student.cpf}"></td>
+      <td th:text="${app.stauts}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div th:insert="fragments/header-and-footer-dashboards.html :: footer"></div>
+
+</body>
+</html>
