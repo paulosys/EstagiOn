@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.Set;
+
+
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -24,4 +27,7 @@ public class User {
     @Email(message = "O email deve ser válido")
     @Size(max = 100, message = "O email deve ter no máximo 100 caracteres")
     private String email;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<Role> roles;
 }
