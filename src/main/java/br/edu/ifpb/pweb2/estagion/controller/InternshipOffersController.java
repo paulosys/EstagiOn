@@ -25,9 +25,6 @@ public class InternshipOffersController {
     @Autowired
     private InternshipOfferService internshipOfferService;
 
-    @Autowired
-    private CompanyService companyService;
-
     @GetMapping
     public ModelAndView listOffers(HttpSession session, ModelAndView modelAndView) {
         Integer companyId = (Integer) session.getAttribute("loggedInCompany");
@@ -68,32 +65,5 @@ public class InternshipOffersController {
         return "redirect:/companies/internship-offers";
     }
 
-    @GetMapping("/{offerId}/applications")
-    public ModelAndView listApplicants(@PathVariable("offerId") Integer offerId, ModelAndView modelAndView) {
-        try {
-            Optional<InternshipOffer> optionalOffer = internshipOfferService.getOfferWithApplications(offerId);
-
-            if (optionalOffer.isEmpty()) {
-                modelAndView.setViewName("error/not-found");
-                modelAndView.addObject("message", "Oferta de estágio não encontrada.");
-                return modelAndView;
-            }
-
-            InternshipOffer offer = optionalOffer.get();
-            List<Application> applications = companyService.ListApplicatioByOffer(offerId);
-
-            modelAndView.setViewName("companies/list-applicants");
-            modelAndView.addObject("internshipOffer", offer);
-            modelAndView.addObject("applications", applications);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            modelAndView.setViewName("error/generic-error");
-            modelAndView.addObject("message", "Ocorreu um erro ao listar os candidatos.");
-        }
-
-        return modelAndView;
-    }
 
 }

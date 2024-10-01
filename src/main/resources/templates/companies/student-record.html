@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ficha do Aluno</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Ficha do Aluno</h2>
+    <div class="card shadow">
+        <div class="card-body">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <th>ID:</th>
+                    <td th:text="${student.id}"></td>
+                </tr>
+                <tr>
+                    <th>Nome:</th>
+                    <td th:text="${student.firstName} + ' ' + ${student.lastName}"></td>
+                </tr>
+                <tr>
+                    <th>Username:</th>
+                    <td th:text="${student.username}"></td>
+                </tr>
+                <tr>
+                    <th>CPF:</th>
+                    <td th:text="${student.cpf}"></td>
+                </tr>
+                <tr>
+                    <th>Curso:</th>
+                    <td th:text="${student.course}"></td>
+                </tr>
+                <tr>
+                    <th>Instituição:</th>
+                    <td th:text="${student.institution}"></td>
+                </tr>
+                <tr>
+                    <th>Habilidades:</th>
+                    <td>
+                        <ul class="list-unstyled">
+                            <li th:each="habilidade : ${student.skills}" th:text="${habilidade.name}"></li>
+                        </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-center">
+                <button onclick="window.history.back()" class="btn btn-primary">Voltar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
