@@ -1,6 +1,8 @@
 package br.edu.ifpb.pweb2.estagion.controller;
 
+import br.edu.ifpb.pweb2.estagion.model.Application;
 import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
+import br.edu.ifpb.pweb2.estagion.service.CompanyService;
 import br.edu.ifpb.pweb2.estagion.service.InternshipOfferService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller()
@@ -21,6 +24,9 @@ public class InternshipOffersController {
 
     @Autowired
     private InternshipOfferService internshipOfferService;
+
+    @Autowired
+    private CompanyService companyService;
 
     @GetMapping
     public ModelAndView listOffers(HttpSession session, ModelAndView modelAndView) {
@@ -74,9 +80,11 @@ public class InternshipOffersController {
             }
 
             InternshipOffer offer = optionalOffer.get();
+            List<Application> applications = companyService.ListApplicatioByOffer(offerId);
+
             modelAndView.setViewName("companies/list-applicants");
             modelAndView.addObject("internshipOffer", offer);
-            modelAndView.addObject("applications", offer.getApplications());
+            modelAndView.addObject("applications", applications);
 
         } catch (Exception e) {
             e.printStackTrace();

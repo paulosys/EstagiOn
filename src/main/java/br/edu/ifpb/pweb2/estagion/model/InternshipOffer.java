@@ -65,11 +65,4 @@ public class InternshipOffer {
     @JoinColumn(name = "company_id", nullable = false)
     @ToString.Exclude
     private Company company;
-
-    @OneToMany(mappedBy = "internshipOffer", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Application> applications;
-
-
-
-
 }
