@@ -1,6 +1,8 @@
 package br.edu.ifpb.pweb2.estagion.service;
 
+import br.edu.ifpb.pweb2.estagion.model.Application;
 import br.edu.ifpb.pweb2.estagion.model.Company;
+import br.edu.ifpb.pweb2.estagion.repositories.ApplicationRepository;
 import br.edu.ifpb.pweb2.estagion.repositories.CompanyRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,9 @@ import java.util.List;
 public class CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
+
+    @Autowired
+    private ApplicationRepository applicationRepository;
 
     public List<Company> findAll() {
         return companyRepository.findAll();
@@ -40,5 +45,9 @@ public class CompanyService {
         }
 
         return null;
+    }
+
+    public List<Application> ListApplicatioByOffer(Integer ofertaId) {
+        return applicationRepository.ListApplicatioByOffer(ofertaId);
     }
 }

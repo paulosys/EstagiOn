@@ -1,15 +1,14 @@
 package br.edu.ifpb.pweb2.estagion.service;
 
-import br.edu.ifpb.pweb2.estagion.model.Company;
 import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
 import br.edu.ifpb.pweb2.estagion.model.StatusInternshipOffer;
 import br.edu.ifpb.pweb2.estagion.repositories.InternshipOfferRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InternshipOfferService {
@@ -63,5 +62,9 @@ public class InternshipOfferService {
     @Transactional
     public List<InternshipOffer> findByWeeklyWorkload(String weeklyWorkload) {
         return internshipOfferRepository.findByWeeklyWorkload(weeklyWorkload);
+    }
+    @Transactional()
+    public Optional<InternshipOffer> getOfferWithApplications(Integer id) {
+        return internshipOfferRepository.findById(id);
     }
 }
