@@ -87,6 +87,8 @@ public class CompanyController {
                 internship.setEndDate(dataTermino);
                 internship.setInternshipValue(Double.parseDouble(offer.getStipendAmount()));
 
+                byte[] internshipTerm = internshipService.createInternshipTerm(internship);
+                internship.setInternshipTerm(internshipTerm);
                 internshipService.save(internship);
 
                 selectedApplication.setStauts(EApplicationStatus.ACCEPTED);
