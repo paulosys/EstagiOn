@@ -69,7 +69,7 @@ public class CompanyController {
         return "redirect:/companies/internship-offers";
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("/delete-internship-offers/{id}")
     public String delete(@PathVariable int id) {
         internshipOfferService.delete(id);
         return "redirect:/companies/internship-offers";
