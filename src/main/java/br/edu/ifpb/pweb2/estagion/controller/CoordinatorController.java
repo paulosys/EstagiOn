@@ -116,7 +116,7 @@ public class CoordinatorController {
     }
 
     @GetMapping("/get-all-internship-offers")
-    public ModelAndView GetAllInternshipOffers(ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "3") int size) {
+    public ModelAndView GetAllInternshipOffers(ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int size) {
         StatusInternshipOffer statusInternshipOffer = _statusInternshipOfferService.findById(1);
         Pageable paging = PageRequest.of(page - 1, size);
 
