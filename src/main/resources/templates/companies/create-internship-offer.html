@@ -14,7 +14,7 @@
 <div class="container mt-5">
     <h2 class="mb-4">Registrar Nova Oferta de Estágio</h2>
 
-    <form th:action="@{/companies/internship-offers/create}" th:object="${internshipOffer}" method="post">
+    <form th:action="@{/companies/create-internship-offer}" th:object="${internshipOffer}" method="post">
         <div class="form-group">
             <label for="titulo">Título da Oferta:</label>
             <input type="text" class="form-control" id="titulo" th:field="*{title}"

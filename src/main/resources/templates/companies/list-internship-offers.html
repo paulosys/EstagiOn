@@ -13,7 +13,9 @@
 <div class="container mt-5">
     <h2 class="mb-4">Minhas Ofertas de Estágio</h2>
 
-    <a th:href="@{/companies/internship-offers/create}" class="btn btn-primary mb-3">Registrar Nova Oferta</a>
+    <form th:action="@{/companies/create-internship-offer}" method="get">
+        <button type="submit" class="btn btn-primary mb-4">Criar Nova Oferta</button>
+    </form>
 
     <table class="table table-striped">
         <thead>
@@ -29,7 +31,7 @@
         <tr th:each="offer : ${internshipOffers}">
             <td th:text="${offer.title}"></td>
             <td th:text="${offer.mainActivity}"></td>
-            <td th:text="${offer.weeklyWorkload}"></td>
+            <td th:text="${offer.weeklyWorkload} + ' horas/semana'"></td>
             <td>
                 <span th:text="${offer.status.getName()}" class="badge badge-primary"/>
             </td>
