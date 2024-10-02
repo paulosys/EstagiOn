@@ -2,22 +2,23 @@ package br.edu.ifpb.pweb2.estagion.controller;
 
 import br.edu.ifpb.pweb2.estagion.model.*;
 import br.edu.ifpb.pweb2.estagion.service.*;
-import br.edu.ifpb.pweb2.estagion.model.Company;
 import br.edu.ifpb.pweb2.estagion.model.Coordinator;
 import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
 import br.edu.ifpb.pweb2.estagion.model.StatusInternshipOffer;
 import br.edu.ifpb.pweb2.estagion.service.InternshipOfferService;
-import jdk.jshell.Snippet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/coordinator")
@@ -67,11 +68,11 @@ public class CoordinatorController {
     @GetMapping("/list-internships-in-progress")
     public ModelAndView listInternshipsInProgress(@RequestParam(defaultValue = "0") int page,
                                        @RequestParam(defaultValue = "5") int size){
-        Page<Internship> estagios = internshipService.listInternhipsInProgress(PageRequest.of(page, size));
+        Page<Internship> internships = internshipService.listInternhipsInProgress(PageRequest.of(page, size));
         ModelAndView mav = new ModelAndView("coordinator/list-internships-in-progress");
 
-        mav.addObject("estagios", estagios.getContent());
-        mav.addObject("page", estagios);
+        mav.addObject("internships", internships.getContent());
+        mav.addObject("page", internships);
         return mav;
     }
 
@@ -128,5 +129,22 @@ public class CoordinatorController {
         modelAndView.addObject("logoutUrl", "/auth/coordinator/login");
 
         return modelAndView;
+    }
+
+    @GetMapping("/download-internships-term/{internshipId}")
+    public ResponseEntity<byte[]> downloadInternshipTerm(@PathVariable Integer internshipId) {
+        Optional<Internship> internship = internshipService.findById(internshipId);
+
+        if (internship.isEmpty() || internship.get().getInternshipTerm() == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        byte[] internshipTerm = internship.get().getInternshipTerm();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDisposition(ContentDisposition.builder("attachment")
+                .filename("internship_term_" + internshipId + ".pdf").build());
+
+        return new ResponseEntity<>(internshipTerm, headers, HttpStatus.OK);
     }
 }
