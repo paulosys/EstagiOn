@@ -13,7 +13,7 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title" th:text="${company.name}">Nome da Empresa</h5>
+            <h5 class="card-title" th:text="${company.getUsername()}">Nome da Empresa</h5>
             <p class="card-text">
                 <strong>CNPJ:</strong> <span th:text="${company.cnpj}">CNPJ da Empresa</span>
             </p>

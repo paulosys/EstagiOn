@@ -27,7 +27,7 @@
         <tbody>
         <tr th:each="app : ${applications}">
             <td th:text="${app.student.firstName}"></td>
-            <td th:text="${app.internshipOffer.company.name}"></td>
+            <td th:text="${app.internshipOffer.company.getUsername()}"></td>
             <td th:text="${app.internshipOffer.title}"></td>
             <td>
                 <a th:href="@{/coordinator/view-company(companyId=${app.internshipOffer.company.id})}"
@@ -48,7 +48,7 @@
                 </a>
             </td>
             <td>
-                <a th:href="@{/coordinator/view-offer(offerId=${app.internshipOffer.id})}"
+                <a th:href="@{/coordinator/view-offer/{id}(id=${app.internshipOffer.id})}"
                    class="btn btn-sm btn-warning"
                    data-toggle="tooltip"
                    data-placement="top"
