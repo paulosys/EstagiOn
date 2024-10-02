@@ -5,15 +5,15 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.ToString;
 
-import java.util.Set;
+import java.util.List;
 
 
 @Data
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "users")
-@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +23,19 @@ public class User {
     @Size(min = 6, max = 100, message = "A senha deve ter entre 6 e 100 caracteres")
     private String password;
 
-    @NotNull(message = "O email é obrigatório")
     @Email(message = "O email deve ser válido")
     @Size(max = 100, message = "O email deve ter no máximo 100 caracteres")
     private String email;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    @NotNull(message = "O nome de usuário é obrigatório")
+    @Size(min = 3, max = 50, message = "O nome de usuário deve ter entre 3 e 50 caracteres")
+    @Column(unique = true)
+    private String username;
+
+    private boolean enabled = true;
+
+    @OneToMany(mappedBy = "username")
+    @ToString.Exclude
+    private List<Authority> authorities;
+
 }

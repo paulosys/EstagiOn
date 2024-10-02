@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/auth/student")
@@ -39,7 +39,7 @@ public class AuthStudentsController {
 
     @PostMapping("/register")
     public ModelAndView processRegistration(
-            @Valid Student student,
+            @Valid @ModelAttribute Student student,
             BindingResult bindingResult,
             ModelAndView modelAndView) {
 
@@ -49,23 +49,15 @@ public class AuthStudentsController {
             return modelAndView;
         }
 
-        studentService.save(student);
-        modelAndView.setViewName("redirect:/auth/student/login");
-
-        return modelAndView;
-    }
-
-    @PostMapping("/login")
-    public ModelAndView processLogin(String username, String password, ModelAndView modelAndView, RedirectAttributes redirectAttributes) {
-        Student student = studentService.tryAuthenticate(username, password);
-
-        if (student != null) {
-            modelAndView.setViewName("redirect:/students");
-            modelAndView.addObject("student", student);
-        } else {
+        try {
+            studentService.save(student);
             modelAndView.setViewName("redirect:/auth/student/login");
-            redirectAttributes.addFlashAttribute("message", "Usuário ou senha incorretos");
+        } catch (Exception e) {
+            modelAndView.addObject("skills", skillService.findAll());
+            modelAndView.addObject("error", e.getMessage());
+            modelAndView.setViewName("auth/student/sign-up");
         }
+
         return modelAndView;
     }
 }

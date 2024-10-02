@@ -27,7 +27,7 @@
                             <label for="password">Senha</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
-                        <p th:if="${message}" th:text="${message}" class="text-danger"></p>
+                        <div th:if="${param.error}" class="alert alert-danger">Credenciais inválidas. Tente novamente.</div>
                         <button type="submit" class="btn btn-primary btn-block">Entrar</button>
                     </form>
                     <div class="mt-3 text-center">

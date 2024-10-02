@@ -25,7 +25,7 @@ public class DatabaseSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) {
         try {
-            seedCoordinator();
+            //seedCoordinator();
             seedSkills();
             seedInternshipOfferStatus();
         } catch (Exception e) {
