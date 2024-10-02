@@ -26,7 +26,7 @@
         <tbody>
         <tr th:each="internship : ${internships}">
             <td th:text="${internship.student.firstName}"></td>
-            <td th:text="${internship.internshipOffer.company.name}"></td>
+            <td th:text="${internship.internshipOffer.company.username}"></td>
             <td th:text="${internship.startDate}"></td>
             <td th:text="${internship.endDate}"></td>
             <td th:text="${internship.internshipValue}"></td>

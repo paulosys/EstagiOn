@@ -63,7 +63,7 @@ public class InternshipService {
 
     private void addCompanyInformation(Document document, Internship internship) {
         document.add(new Paragraph("Company:").setBold());
-        document.add(new Paragraph("Name: " + internship.getInternshipOffer().getCompany().getName()));
+        document.add(new Paragraph("Name: " + internship.getInternshipOffer().getCompany().getUsername()));
         document.add(new Paragraph("CNPJ: " + internship.getInternshipOffer().getCompany().getCnpj()));
         document.add(new Paragraph("Address: " + internship.getInternshipOffer().getCompany().getAddress()));
         document.add(new Paragraph("Phone: " + internship.getInternshipOffer().getCompany().getContactPhone()));

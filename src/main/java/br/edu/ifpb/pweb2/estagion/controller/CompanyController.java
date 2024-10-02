@@ -40,9 +40,6 @@ public class CompanyController {
     private CompanyService companyService;
 
     @Autowired
-    private InternshipOfferService internshipOfferService;
-
-    @Autowired
     private StudentService studentService;
 
     @GetMapping()

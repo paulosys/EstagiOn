@@ -1,5 +1,6 @@
 package br.edu.ifpb.pweb2.estagion.service;
 
+import br.edu.ifpb.pweb2.estagion.model.Company;
 import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
 import br.edu.ifpb.pweb2.estagion.model.StatusInternshipOffer;
 import br.edu.ifpb.pweb2.estagion.repositories.InternshipOfferRepository;
