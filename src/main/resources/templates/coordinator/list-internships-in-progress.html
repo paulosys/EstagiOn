@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Listagem de Estágios em Andamento</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+<div th:insert="fragments/header-and-footer-dashboards.html :: header"></div>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Estágios em Andamento</h2>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Aluno</th>
+            <th>Empresa</th>
+            <th>Data de Início</th>
+            <th>Data de Término</th>
+            <th>Valor da Bolsa</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="internship : ${estagios}">
+            <td th:text="${internship.student.firstName}"></td>
+            <td th:text="${internship.internshipOffer.company.name}"></td>
+            <td th:text="${internship.startDate}"></td>
+            <td th:text="${internship.endDate}"></td>
+            <td th:text="${internship.internshipValue}"></td>
+            <td>
+                <a class="btn btn-success" th:href="@{#}" title="Download do termo de estágio">
+                    <i class="bi bi-file-earmark-arrow-down"></i> Baixar Termo
+                </a>
+            </td>
+<!--                <a th:href="@{/coordinator/view-company(companyId=${internship.internshipOffer.company.id})}"-->
+<!--                   class="btn btn-sm btn-warning"-->
+<!--                   data-toggle="tooltip"-->
+<!--                   data-placement="top"-->
+<!--                   title="Visualizar Empresa">-->
+<!--                    <i class="fas fa-regular fa-eye"></i>-->
+<!--                </a>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                <a th:href="@{/coordinator/view-student(studentId=${internship.student.id})}"-->
+<!--                   class="btn btn-sm btn-warning"-->
+<!--                   data-toggle="tooltip"-->
+<!--                   data-placement="top"-->
+<!--                   title="Visualizar Aluno">-->
+<!--                    <i class="fas fa-regular fa-eye"></i>-->
+<!--                </a>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                <a th:href="@{/coordinator/view-offer(offerId=${internship.internshipOffer.id})}"-->
+<!--                   class="btn btn-sm btn-warning"-->
+<!--                   data-toggle="tooltip"-->
+<!--                   data-placement="top"-->
+<!--                   title="Visualizar Oferta">-->
+<!--                    <i class="fas fa-regular fa-eye"></i>-->
+<!--                </a>-->
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:insert="fragments/header-and-footer-dashboards.html :: footer"></div>
+
+</body>
+</html>
