@@ -64,15 +64,15 @@ public class StudentController {
 
     @GetMapping("/list-applied-internships")
     public ModelAndView listAppliedInternships(
-            @RequestParam("studentId") Integer studentId,
-            ModelAndView modelAndView
+            ModelAndView modelAndView,
+            Principal principal
     ) {
+        Student student = studentService.findByUsername(principal.getName());
+        Integer studentId = student.getId();
         List<Application> appliedInternships = studentInternshipsService.findByStudentId(studentId);
 
         modelAndView.setViewName("students/list-applied-internships");
         modelAndView.addObject("appliedInternships", appliedInternships);
-        modelAndView.addObject("studentId", studentId);
-        modelAndView.addObject("logoutUrl", "/auth/student/login");
         return modelAndView;
     }
 
