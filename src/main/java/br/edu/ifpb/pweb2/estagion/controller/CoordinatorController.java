@@ -6,9 +6,12 @@ import br.edu.ifpb.pweb2.estagion.model.Coordinator;
 import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
 import br.edu.ifpb.pweb2.estagion.model.StatusInternshipOffer;
 import br.edu.ifpb.pweb2.estagion.service.InternshipOfferService;
+import br.edu.ifpb.pweb2.estagion.ui.NavPage;
+import br.edu.ifpb.pweb2.estagion.ui.NavePageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -113,16 +116,21 @@ public class CoordinatorController {
     }
 
     @GetMapping("/get-all-internship-offers")
-    public ModelAndView GetAllInternshipOffers(ModelAndView modelAndView) {
+    public ModelAndView GetAllInternshipOffers(ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "3") int size) {
         StatusInternshipOffer statusInternshipOffer = _statusInternshipOfferService.findById(1);
+        Pageable paging = PageRequest.of(page - 1, size);
 
-        List<InternshipOffer> internshipOffers = _internshipOfferService.findByStatus(statusInternshipOffer);
+        Page<InternshipOffer> internshipOffers = _internshipOfferService.findByStatus(statusInternshipOffer, paging);
 
         if (internshipOffers == null || internshipOffers.isEmpty()) {
             System.out.println("Nenhuma oferta de estágio encontrada!");
         } else {
-            System.out.println("Ofertas de estágio encontradas: " + internshipOffers.size());
+            System.out.println("Ofertas de estágio encontradas: " + internshipOffers.getTotalElements());
         }
+
+        NavPage navPage = NavePageBuilder.newNavPage(internshipOffers.getNumber() + 1,
+                internshipOffers.getTotalElements(), internshipOffers.getTotalPages(), size);
+        modelAndView.addObject("navPage", navPage);
 
         modelAndView.setViewName("coordinator/get-all-internships-offers");
         modelAndView.addObject("internshipOffers", internshipOffers);

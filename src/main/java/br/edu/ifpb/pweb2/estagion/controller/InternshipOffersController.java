@@ -31,7 +31,7 @@ public class InternshipOffersController {
     private InternshipOfferService internshipOfferService;
 
     @GetMapping
-    public ModelAndView listOffers(HttpSession session, ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "3") int size) {
+    public ModelAndView listOffers(HttpSession session, ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int size) {
         Integer companyId = (Integer) session.getAttribute("loggedInCompany");
         Pageable paging = PageRequest.of(page - 1, size);
 
