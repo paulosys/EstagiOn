@@ -21,7 +21,7 @@ public class AuthCompanyController {
 
     @GetMapping("/login")
     public ModelAndView showLoginForm(ModelAndView modelAndView) {
-        modelAndView.setViewName("auth/company/sign-in");
+        modelAndView.setViewName("auth/login");
         return modelAndView;
     }
 
@@ -49,7 +49,7 @@ public class AuthCompanyController {
         }
 
         service.save(company);
-        modelAndView.setViewName("redirect:/auth/company/login");
+        modelAndView.setViewName("redirect:/auth/login");
         return modelAndView;
     }
 

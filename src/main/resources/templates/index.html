@@ -11,37 +11,44 @@
 
 <div th:insert="fragments/header-and-footer-main.html :: header-main"></div>
 
-<section class="container">
+<section class="container my-5">
     <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fas fa-user-graduate"></i> Alunos</h5>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><i class="fas fa-user-graduate fa-2x"></i> Alunos</h5>
                     <p class="card-text">Crie seu perfil e encontre as melhores oportunidades de estágio.</p>
-                    <a class="nav-link btn btn-primary" th:href="@{/auth/student/login}">Acesse</a>
+                    <a class="nav-link btn btn-primary" th:href="@{/auth/login}">Entrar</a>
+                    <br>
+                    <a class="btn btn-outline-secondary mt-2" th:href="@{/auth/student/register}">Crie sua conta</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fas fa-building"></i> Empresas</h5>
+
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><i class="fas fa-building fa-2x"></i> Empresas</h5>
                     <p class="card-text">Publique suas vagas de estágio e encontre talentos incríveis.</p>
-                    <a class="nav-link btn btn-primary" th:href="@{/auth/company/login}">Acesse</a>
+                    <a class="nav-link btn btn-primary" th:href="@{/auth/login}">Entrar</a>
+                    <br>
+                    <a class="btn btn-outline-secondary mt-2" th:href="@{/auth/company/register}">Crie sua conta</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fas fa-user-cog"></i> Coordenadores</h5>
+
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><i class="fas fa-user-cog fa-2x"></i> Coordenadores</h5>
                     <p class="card-text">Gerencie ofertas, candidatos, empresas e acompanhe os estágios.</p>
-                    <a class="nav-link btn btn-primary" th:href="@{/auth/coordinator/login}">Acesse</a>
+                    <a class="nav-link btn btn-primary" th:href="@{/auth/login}">Entrar</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 
 <div th:insert="fragments/header-and-footer-main.html :: footer"></div>
 

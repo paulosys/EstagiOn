@@ -25,7 +25,7 @@ public class AuthStudentsController {
 
     @GetMapping("/login")
     public ModelAndView showLoginForm(ModelAndView modelAndView) {
-        modelAndView.setViewName("auth/student/sign-in");
+        modelAndView.setViewName("auth/login");
         return modelAndView;
     }
 
@@ -51,7 +51,7 @@ public class AuthStudentsController {
 
         try {
             studentService.save(student);
-            modelAndView.setViewName("redirect:/auth/student/login");
+            modelAndView.setViewName("redirect:/auth/login");
         } catch (Exception e) {
             modelAndView.addObject("skills", skillService.findAll());
             modelAndView.addObject("error", e.getMessage());
