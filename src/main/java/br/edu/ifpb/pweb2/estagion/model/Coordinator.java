@@ -13,10 +13,6 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Coordinator extends User {
     @NotNull
-    @Size(min = 3, max = 50)
-    private String username;
-
-    @NotNull
     @Size(min = 2, max = 50)
     private String Name;
 }

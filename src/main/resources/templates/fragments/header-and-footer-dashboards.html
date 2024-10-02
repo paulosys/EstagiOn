@@ -13,12 +13,14 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{${logoutUrl}}">Sair</a>
-                </li>
-            </ul>
+            <form class="navbar-nav ml-auto" th:action="@{/auth/logout}" method="POST">
+                <span  style="margin-right: 3px; font-size: 0.8em;"></span>
+                <button type="submit" class="btn btn-outline-success my-2 my-sm-0">
+                    Sair
+                </button>
+            </form>
         </div>
     </nav>
 </header>

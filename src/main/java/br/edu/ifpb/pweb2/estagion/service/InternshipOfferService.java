@@ -46,17 +46,15 @@ public class InternshipOfferService {
         internshipOfferRepository.delete(internshipOffer);
     }
 
-    public void save(InternshipOffer internshipOffer, Integer companyId) {
+    public void save(InternshipOffer internshipOffer, Company company) {
         var status = statusInternshipOfferService.findById(1);
-        var company = companyService.findById(companyId);
 
         internshipOffer.setCompany(company);
         internshipOffer.setStatus(status);
 
         var offer = internshipOfferRepository.save(internshipOffer);
 
-        company.getInternshipOffers().add(offer);
-        companyService.save(company);
+        companyService.saveInternshipOffer(company, offer);
     }
 
     @Transactional

@@ -38,9 +38,9 @@
             <td th:text="${offer.prerequisites}"></td>
             <td th:text="${offer.requiredSkills}"></td>
             <td th:text="${offer.desiredSkills}"></td>
-            <td th:text="${offer.company.name}"></td>
+            <td th:text="${offer.company.getUsername()}"></td>
             <td>
-                <a th:href="@{/internship-offers/view/{id}(id=${offer.id})}"
+                <a th:href="@{/coordinator/view-offer/{id}(id=${offer.id})}"
                    class="btn btn-sm btn-warning"
                    data-toggle="tooltip"
                    data-placement="top"

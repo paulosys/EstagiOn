@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface CompanyRepository extends JpaRepository<Company, Integer> {
     Optional<Company> findByEmail(String email);
     Optional<Company> findByCnpj(String cnpj);
+    Optional<Company> findByUsername(String username);
 
     @Query("SELECT a FROM Application a WHERE a.internshipOffer.id = :idOfertaEstagio")
     List<Application> findByOfertaEstagio_IdOfertaEstagio(@Param("idOfertaEstagio") Long idOfertaEstagio);

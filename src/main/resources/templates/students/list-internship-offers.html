@@ -15,7 +15,6 @@
     <h2 class="mb-4">Ofertas de Estágio</h2>
 
     <form method="GET" th:action="@{/students/list-internship-offers}">
-        <input type="hidden" name="studentId" th:value="${studentId}" />
         <div class="row mb-4">
             <div class="col-md-4">
                 <input type="text" name="weeklyWorkload" class="form-control" placeholder="Filtrar por Carga Horária"
@@ -25,7 +24,7 @@
         <div class="row mb-4">
             <div class="col-md-12 text-right">
                 <button type="submit" class="btn btn-primary">Filtrar</button>
-                <a th:href="@{/students/list-internship-offers(studentId=${studentId})}" class="btn btn-secondary">Limpar Filtros</a>
+                <a th:href="@{/students/list-internship-offers}" class="btn btn-secondary">Limpar Filtros</a>
             </div>
         </div>
     </form>
@@ -49,9 +48,9 @@
             <td>
                 <span th:text="${offer.status.getName()}" class="badge badge-primary"/>
             </td>
-            <td th:text="${offer.company.getName()}"></td>
+            <td th:text="${offer.company.getUsername()}"></td>
             <td>
-                <a th:href="@{/students/view-internship-offer(internshipOfferId=${offer.id}, studentId=${studentId})}"
+                <a th:href="@{/students/view-internship-offer(internshipOfferId=${offer.id})}"
                    class="btn btn-sm btn-warning"
                    data-toggle="tooltip"
                    data-placement="top"

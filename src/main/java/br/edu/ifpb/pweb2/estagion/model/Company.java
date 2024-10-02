@@ -17,12 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Company extends User {
-
-    @NotNull(message = "O nome da empresa é obrigatório")
-    @Size(max = 50, message = "O nome da empresa deve ter até 50 caracteres")
-    @Column(nullable = false, length = 50)
-    private String name;
-
     @NotNull(message = "O CNPJ é obrigatório")
     @Size(min = 14, max = 14, message = "O CNPJ deve ter exatamente 14 caracteres")
     @Column(nullable = false, length = 14)

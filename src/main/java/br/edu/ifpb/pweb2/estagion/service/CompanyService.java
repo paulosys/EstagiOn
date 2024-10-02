@@ -1,50 +1,76 @@
 package br.edu.ifpb.pweb2.estagion.service;
 
 import br.edu.ifpb.pweb2.estagion.model.Application;
+import br.edu.ifpb.pweb2.estagion.model.Authority;
 import br.edu.ifpb.pweb2.estagion.model.Company;
 import br.edu.ifpb.pweb2.estagion.repositories.ApplicationRepository;
+import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
+import br.edu.ifpb.pweb2.estagion.repositories.AuthorityRepository;
 import br.edu.ifpb.pweb2.estagion.repositories.CompanyRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CompanyService {
     @Autowired
-    private CompanyRepository companyRepository;
+    private CompanyRepository repository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private ApplicationRepository applicationRepository;
 
+    @Autowired
+    private AuthorityRepository authorityRepository;
+
+    @Transactional
     public List<Company> findAll() {
-        return companyRepository.findAll();
+        return repository.findAll();
     }
 
+    @Transactional
     public Company findById(int id) {
-        return companyRepository.findById(id).orElse(null);
+        return repository.findById(id).orElse(null);
+    }
+
+    @Transactional
+    public Company findByUsername(String username) {
+        return repository.findByUsername(username).orElse(null);
     }
 
     @Transactional
     public Company findByCnpj(String cnpj) {
-        return companyRepository.findByCnpj(cnpj).orElse(null);
+        return repository.findByCnpj(cnpj).orElse(null);
+    }
+
+    public void saveInternshipOffer(Company company, InternshipOffer offer) {
+        company.getInternshipOffers().add(offer);
+        repository.save(company);
     }
 
     @Transactional
     public void save(Company company) {
-        companyRepository.save(company);
-    }
+        Optional<Company> companyCnpj = repository.findByCnpj(company.getCnpj());
 
-    @Transactional
-    public Company tryAuthenticate(String email, String password) {
-        Company company = companyRepository.findByEmail(email).orElse(null);
-
-        if (company != null && company.getPassword().equals(password)) {
-            return company;
+        if (companyCnpj.isPresent()) {
+            throw new IllegalArgumentException("CNPJ já cadastrado");
         }
 
-        return null;
+        company.setPassword(passwordEncoder.encode(company.getPassword()));
+
+        Authority authority = new Authority();
+        authority.setId(new Authority.AuthorityId(company.getUsername(), "ROLE_COMPANY"));
+        authority.setUsername(company);
+        authority.setAuthority("ROLE_COMPANY");
+
+        repository.save(company);
+        authorityRepository.save(authority);
     }
 
     public List<Application> ListApplicatioByOffer(Integer ofertaId) {

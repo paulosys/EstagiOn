@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <title>Painel do aluno</title>
@@ -21,7 +21,7 @@
 <div th:insert="fragments/header-and-footer-dashboards.html :: header"></div>
 
 <div class="container mt-5">
-    <h2 class="mb-4">Bem-vindo(a), <span th:text="${student.getFirstName()}"></span>!</h2>
+    <h2 class="mb-4">Bem-vindo(a), <span sec:authorize="isAuthenticated()" sec:authentication="name"></span>!</h2>
 
     <div class="row">
         <div class="col-md-4 mb-4">
@@ -33,7 +33,7 @@
 
                     <br>
 
-                    <a th:href="@{/students/list-internship-offers(studentId=${student.id})}" class="btn btn-primary">Acessar</a>
+                    <a th:href="@{/students/list-internship-offers}" class="btn btn-primary">Acessar</a>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
                     <i class="fas fa-file-alt fa-3x text-info"></i>
                     <h5 class="card-title mt-3">Estágios</h5>
                     <p class="card-text">Acompanhe o andamento dos estágios em aberto.</p>
-                    <a th:href="@{/students/list-applied-internships(studentId=${student.id})}" class="btn btn-info">Acessar</a>
+                    <a th:href="@{/students/list-applied-internships}" class="btn btn-info">Acessar</a>
                 </div>
             </div>
         </div>
