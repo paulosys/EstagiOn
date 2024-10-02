@@ -1,18 +1,16 @@
 package br.edu.ifpb.pweb2.estagion.controller;
 
 import br.edu.ifpb.pweb2.estagion.model.*;
-import br.edu.ifpb.pweb2.estagion.service.ApplicationService;
-import br.edu.ifpb.pweb2.estagion.service.CompanyService;
-import br.edu.ifpb.pweb2.estagion.service.InternshipOfferService;
-import br.edu.ifpb.pweb2.estagion.service.StudentService;
+import br.edu.ifpb.pweb2.estagion.service.*;
 import br.edu.ifpb.pweb2.estagion.model.Company;
 import br.edu.ifpb.pweb2.estagion.model.Coordinator;
 import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
 import br.edu.ifpb.pweb2.estagion.model.StatusInternshipOffer;
 import br.edu.ifpb.pweb2.estagion.service.InternshipOfferService;
-import br.edu.ifpb.pweb2.estagion.service.StatusInternshipOfferService;
 import jdk.jshell.Snippet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +37,9 @@ public class CoordinatorController {
     @Autowired
     private StatusInternshipOfferService _statusInternshipOfferService;
 
+    @Autowired
+    private InternshipService internshipService;
+
     @GetMapping
     public ModelAndView showHome(
             ModelAndView modelAndView,
@@ -61,6 +62,17 @@ public class CoordinatorController {
         modelAndView.addObject("applications", applicationService.findAllByStauts(EApplicationStatus.APPLIED));
         modelAndView.addObject("logoutUrl", "/auth/coordinator/login");
         return modelAndView;
+    }
+
+    @GetMapping("/list-internships-in-progress")
+    public ModelAndView listInternshipsInProgress(@RequestParam(defaultValue = "0") int page,
+                                       @RequestParam(defaultValue = "5") int size){
+        Page<Internship> estagios = internshipService.listInternhipsInProgress(PageRequest.of(page, size));
+        ModelAndView mav = new ModelAndView("coordinator/list-internships-in-progress");
+
+        mav.addObject("estagios", estagios.getContent());
+        mav.addObject("page", estagios);
+        return mav;
     }
 
     @GetMapping("/view-company")
