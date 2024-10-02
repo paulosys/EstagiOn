@@ -6,6 +6,8 @@ import br.edu.ifpb.pweb2.estagion.model.StatusInternshipOffer;
 import br.edu.ifpb.pweb2.estagion.repositories.InternshipOfferRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
@@ -27,15 +29,13 @@ public class InternshipOfferService {
     }
 
     @Transactional
-    public  List<InternshipOffer> findByCompanyId(Integer company) {
-        List<InternshipOffer> result = internshipOfferRepository.findByCompanyId(company);
-        return result;
+    public Page<InternshipOffer> findByCompanyId(Integer company, Pageable page) {
+        return internshipOfferRepository.findByCompanyId(company, page);
     }
 
     @Transactional
-    public List<InternshipOffer> findByStatus(StatusInternshipOffer status) {
-        List<InternshipOffer> result = internshipOfferRepository.findByStatus(status);
-        return result;
+    public Page<InternshipOffer> findByStatus(StatusInternshipOffer status, Pageable pageable) {
+        return internshipOfferRepository.findByStatus(status, pageable);
     }
 
     public InternshipOffer findById(int id) {
@@ -61,7 +61,7 @@ public class InternshipOfferService {
     }
 
     @Transactional
-    public List<InternshipOffer> findByWeeklyWorkload(String weeklyWorkload) {
-        return internshipOfferRepository.findByWeeklyWorkload(weeklyWorkload);
+    public Page<InternshipOffer> findByWeeklyWorkload(String weeklyWorkload, Pageable pageable) {
+        return internshipOfferRepository.findByWeeklyWorkload(weeklyWorkload, pageable);
     }
 }
