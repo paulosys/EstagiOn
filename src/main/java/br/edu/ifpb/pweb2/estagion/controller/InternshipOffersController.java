@@ -2,9 +2,14 @@ package br.edu.ifpb.pweb2.estagion.controller;
 
 import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
 import br.edu.ifpb.pweb2.estagion.service.InternshipOfferService;
+import br.edu.ifpb.pweb2.estagion.ui.NavPage;
+import br.edu.ifpb.pweb2.estagion.ui.NavePageBuilder;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,12 +27,19 @@ public class InternshipOffersController {
     private InternshipOfferService internshipOfferService;
 
     @GetMapping
-    public ModelAndView listOffers(HttpSession session, ModelAndView modelAndView) {
+    public ModelAndView listOffers(HttpSession session, ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "3") int size) {
         Integer companyId = (Integer) session.getAttribute("loggedInCompany");
+        Pageable paging = PageRequest.of(page - 1, size);
 
         if (companyId != null) {
+            Page<InternshipOffer> resultado = internshipOfferService.findByCompanyId(companyId, paging);
+
             modelAndView.setViewName("companies/list-internship-offers");
-            modelAndView.addObject("internshipOffers", internshipOfferService.findByCompanyId(companyId));
+            modelAndView.addObject("internshipOffers", resultado);
+
+            NavPage navPage = NavePageBuilder.newNavPage(resultado.getNumber() + 1,
+                    resultado.getTotalElements(), resultado.getTotalPages(), size);
+            modelAndView.addObject("navPage", navPage);
         } else {
             modelAndView.setViewName("redirect:/auth/company/login");
         }
