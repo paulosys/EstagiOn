@@ -21,7 +21,7 @@
 <div th:insert="fragments/header-and-footer-dashboards.html :: header"></div>
 
 <div class="container mt-5">
-    <h2 class="mb-4">Bem-vindo(a), <span th:text="${coordinator.getName()}"></span>!</h2>
+    <h2 class="mb-4">Bem-vindo(a), <span sec:authorize="isAuthenticated()" sec:authentication="name"></span>!</h2>
 
     <div class="row">
         <div class="col-md-4 mb-4">

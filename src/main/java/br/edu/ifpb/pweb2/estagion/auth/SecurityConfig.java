@@ -9,8 +9,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -69,6 +67,9 @@ public class SecurityConfig {
             } else if (authentication.getAuthorities().stream()
                     .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_COMPANY"))) {
                 response.sendRedirect("/estagion/companies");
+            } else if (authentication.getAuthorities().stream()
+                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
+                response.sendRedirect("/estagion/coordinator");
             } else {
                 response.sendRedirect("/estagion/");
             }
@@ -90,26 +91,6 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails student = User.withUsername("student")
-                .password(passwordEncoder().encode("estagion"))
-                .roles("STUDENT")
-                .build();
-
-        UserDetails company = User.withUsername("company")
-                .password(passwordEncoder().encode("estagion"))
-                .roles("COMPANY")
-                .build();
-
-        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
-
-        if (!manager.userExists(student.getUsername())) {
-            manager.createUser(student);
-        }
-
-        if (!manager.userExists(company.getUsername())) {
-            manager.createUser(company);
-        }
-
-        return manager;
+        return new JdbcUserDetailsManager(dataSource);
     }
 }
