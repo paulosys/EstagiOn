@@ -3,6 +3,7 @@ package br.edu.ifpb.pweb2.estagion.controller;
 import br.edu.ifpb.pweb2.estagion.model.Student;
 import br.edu.ifpb.pweb2.estagion.service.SkillService;
 import br.edu.ifpb.pweb2.estagion.service.StudentService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,10 +57,11 @@ public class AuthStudentsController {
     }
 
     @PostMapping("/login")
-    public ModelAndView processLogin(String username, String password, ModelAndView modelAndView, RedirectAttributes redirectAttributes) {
+    public ModelAndView processLogin(String username, String password, ModelAndView modelAndView, RedirectAttributes redirectAttributes, HttpSession session) {
         Student student = studentService.tryAuthenticate(username, password);
 
         if (student != null) {
+            session.setAttribute("loggedInStudent", student.getId());
             modelAndView.setViewName("redirect:/students");
             modelAndView.addObject("student", student);
         } else {

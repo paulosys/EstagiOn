@@ -45,10 +45,12 @@ public class StudentController {
     @GetMapping("/list-internship-offers")
     public ModelAndView listIntershipOffers(
             @RequestParam("studentId") Integer studentId,
+            HttpSession session,
             @RequestParam(value = "weeklyWorkload", required = false) String weeklyWorkload,
             ModelAndView modelAndView
     ) {
         List<InternshipOffer> internshipOffers;
+        Integer studentId = (Integer) session.getAttribute("loggedInStudent");
         StatusInternshipOffer statusInternshipOffer = statusInternshipOfferService.findById(1);
 
         if (weeklyWorkload != null && !weeklyWorkload.isEmpty()) {
