@@ -4,11 +4,7 @@ import br.edu.ifpb.pweb2.estagion.model.Application;
 import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
 import br.edu.ifpb.pweb2.estagion.model.StatusInternshipOffer;
 import br.edu.ifpb.pweb2.estagion.model.Student;
-import br.edu.ifpb.pweb2.estagion.service.ApplicationService;
-import br.edu.ifpb.pweb2.estagion.service.InternshipOfferService;
-import br.edu.ifpb.pweb2.estagion.service.StatusInternshipOfferService;
-import br.edu.ifpb.pweb2.estagion.service.StudentInternshipsService;
-import br.edu.ifpb.pweb2.estagion.service.StudentService;
+import br.edu.ifpb.pweb2.estagion.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +18,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/students")
 public class StudentController {
+    @Autowired
+    private StudentService studentService;
+
     @Autowired
     private StatusInternshipOfferService statusInternshipOfferService;
 
@@ -54,7 +53,7 @@ public class StudentController {
         if (weeklyWorkload != null && !weeklyWorkload.isEmpty()) {
             internshipOffers = internshipOfferService.findByWeeklyWorkload(weeklyWorkload);
         } else {
-            internshipOffers =  internshipOfferService.findByStatus(statusInternshipOffer);
+            internshipOffers = internshipOfferService.findByStatus(statusInternshipOffer);
             internshipOffers.forEach(i -> System.out.println(i.getStatus().getName()));
         }
 
@@ -70,7 +69,7 @@ public class StudentController {
             @RequestParam("studentId") Integer studentId,
             ModelAndView modelAndView
     ) {
-        List<Application> appliedInternships =  studentInternshipsService.findByStudentId(studentId);
+        List<Application> appliedInternships = studentInternshipsService.findByStudentId(studentId);
 
         modelAndView.setViewName("students/list-applied-internships");
         modelAndView.addObject("appliedInternships", appliedInternships);
