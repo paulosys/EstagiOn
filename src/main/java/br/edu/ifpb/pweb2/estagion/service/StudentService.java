@@ -26,6 +26,10 @@ public class StudentService {
         return repository.findAll();
     }
 
+    public Student findByUsername(String username) {
+        return repository.findByUsername(username).orElse(null);
+    }
+
     public Student findById(int id) {
         return repository.findById(id).orElse(null);
     }

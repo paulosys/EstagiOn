@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -43,7 +44,6 @@ public class StudentController {
 
     @GetMapping("/list-internship-offers")
     public ModelAndView listIntershipOffers(
-            @RequestParam("studentId") Integer studentId,
             @RequestParam(value = "weeklyWorkload", required = false) String weeklyWorkload,
             ModelAndView modelAndView
     ) {
@@ -59,8 +59,6 @@ public class StudentController {
 
         modelAndView.setViewName("students/list-internship-offers");
         modelAndView.addObject("internshipOffers", internshipOffers);
-        modelAndView.addObject("studentId", studentId);
-        modelAndView.addObject("logoutUrl", "/auth/student/login");
         return modelAndView;
     }
 
