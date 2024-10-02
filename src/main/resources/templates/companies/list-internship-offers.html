@@ -36,14 +36,7 @@
                 <span th:text="${offer.status.getName()}" class="badge badge-primary"/>
             </td>
             <td>
-                <a th:href="@{/companies/internship-offers/edit/{id}(id=${offer.id})}"
-                   class="btn btn-sm btn-warning"
-                   data-toggle="tooltip"
-                   data-placement="top"
-                   title="Editar Oferta">
-                    <i class="fas fa-pencil-alt"></i>
-                </a>
-                <form th:action="@{'/companies/delete-internship-offers/' + ${offer.id}}" method="post" style="display:inline;">
+                <form th:action="@{'/companies/delete-internship-offers/' + ${offer.id}}" method="post">
                     <button type="submit" title="Excluir Oferta" class="btn btn-sm btn-danger d-inline-block">
                         <i class="fas fa-trash"></i>
                     </button>
