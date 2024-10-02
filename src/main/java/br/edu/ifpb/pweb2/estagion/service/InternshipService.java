@@ -2,7 +2,6 @@ package br.edu.ifpb.pweb2.estagion.service;
 
 import br.edu.ifpb.pweb2.estagion.model.Internship;
 import br.edu.ifpb.pweb2.estagion.repositories.InternshipRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +12,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import java.io.ByteArrayOutputStream;
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InternshipService {
@@ -25,9 +24,8 @@ public class InternshipService {
         internshipRepository.save(estagio);
     }
 
-    public Internship findById(Long id) {
-        return internshipRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Internship not found By ID: " + id));
+    public Optional<Internship> findById(Integer id) {
+        return internshipRepository.findById(id);
     }
 
     public Page<Internship> listInternhipsInProgress(Pageable pageable){
