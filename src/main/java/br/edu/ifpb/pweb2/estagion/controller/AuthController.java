@@ -1,6 +1,8 @@
 package br.edu.ifpb.pweb2.estagion.controller;
 
+import br.edu.ifpb.pweb2.estagion.model.Company;
 import br.edu.ifpb.pweb2.estagion.model.Student;
+import br.edu.ifpb.pweb2.estagion.service.CompanyService;
 import br.edu.ifpb.pweb2.estagion.service.SkillService;
 import br.edu.ifpb.pweb2.estagion.service.StudentService;
 import jakarta.validation.Valid;
@@ -22,6 +24,9 @@ public class AuthController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private CompanyService companyService;
 
     @GetMapping("/login")
     public ModelAndView showLoginForm(ModelAndView modelAndView) {
@@ -55,6 +60,31 @@ public class AuthController {
             modelAndView.setViewName("redirect:/auth/login");
         } catch (Exception e) {
             modelAndView.addObject("skills", skillService.findAll());
+            modelAndView.addObject("error", e.getMessage());
+        }
+
+        return modelAndView;
+    }
+
+    @GetMapping("/register-company")
+    public ModelAndView showRegistrationForm(ModelAndView modelAndView) {
+        modelAndView.setViewName("auth/company-register");
+        modelAndView.addObject("company", new Company());
+        return modelAndView;
+    }
+
+    @PostMapping("/register-company")
+    public ModelAndView processRegistration(@Valid Company company, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView("auth/company-register");
+
+        if (bindingResult.hasErrors()) {
+            return modelAndView;
+        }
+
+        try {
+            companyService.save(company);
+            modelAndView.setViewName("redirect:/auth/login");
+        } catch (Exception e) {
             modelAndView.addObject("error", e.getMessage());
         }
 

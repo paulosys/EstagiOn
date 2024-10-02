@@ -41,7 +41,7 @@ public class SecurityConfig {
                                 "/", "/auth/**").permitAll()
                         .requestMatchers("/companies/**").hasRole("COMPANY")
                         .requestMatchers("/students/**").hasRole("STUDENT")
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .formLogin((form) -> form
                         .loginPage("/auth/login")
