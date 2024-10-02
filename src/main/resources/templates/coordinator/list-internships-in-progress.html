@@ -20,19 +20,19 @@
             <th>Data de Início</th>
             <th>Data de Término</th>
             <th>Valor da Bolsa</th>
-            <th>Ações</th>
+            <th>Termo</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="internship : ${estagios}">
+        <tr th:each="internship : ${internships}">
             <td th:text="${internship.student.firstName}"></td>
             <td th:text="${internship.internshipOffer.company.name}"></td>
             <td th:text="${internship.startDate}"></td>
             <td th:text="${internship.endDate}"></td>
             <td th:text="${internship.internshipValue}"></td>
             <td>
-                <a class="btn btn-success" th:href="@{#}" title="Download do termo de estágio">
-                    <i class="bi bi-file-earmark-arrow-down"></i> Baixar Termo
+                <a class="btn btn-warning" th:href="@{download-internships-term/{internshipId}(internshipId=${internship.id})}" title="Download do termo de estágio">
+                    <i class="fas fa-download fa-sm"></i>
                 </a>
             </td>
 <!--                <a th:href="@{/coordinator/view-company(companyId=${internship.internshipOffer.company.id})}"-->
