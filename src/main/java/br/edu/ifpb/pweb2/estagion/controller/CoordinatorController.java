@@ -1,17 +1,7 @@
 package br.edu.ifpb.pweb2.estagion.controller;
 
 import br.edu.ifpb.pweb2.estagion.model.*;
-import br.edu.ifpb.pweb2.estagion.service.ApplicationService;
-import br.edu.ifpb.pweb2.estagion.service.CompanyService;
-import br.edu.ifpb.pweb2.estagion.service.InternshipOfferService;
-import br.edu.ifpb.pweb2.estagion.service.StudentService;
-import br.edu.ifpb.pweb2.estagion.model.Company;
-import br.edu.ifpb.pweb2.estagion.model.Coordinator;
-import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
-import br.edu.ifpb.pweb2.estagion.model.StatusInternshipOffer;
-import br.edu.ifpb.pweb2.estagion.service.InternshipOfferService;
-import br.edu.ifpb.pweb2.estagion.service.StatusInternshipOfferService;
-import jdk.jshell.Snippet;
+import br.edu.ifpb.pweb2.estagion.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
