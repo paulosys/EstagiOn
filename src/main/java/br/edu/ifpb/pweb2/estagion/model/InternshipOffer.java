@@ -65,4 +65,6 @@ public class InternshipOffer {
     @JoinColumn(name = "company_id", nullable = false)
     @ToString.Exclude
     private Company company;
+
+    private Boolean isFilled;
 }

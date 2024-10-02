@@ -67,4 +67,7 @@ public class InternshipOfferService {
     public Optional<InternshipOffer> getOfferWithApplications(Integer id) {
         return internshipOfferRepository.findById(id);
     }
+    public InternshipOffer updateOffer(InternshipOffer internshipOffer) {
+        return internshipOfferRepository.save(internshipOffer);
+    }
 }

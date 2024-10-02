@@ -14,6 +14,8 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
     List<Application> findAllByStauts(EApplicationStatus status);
     List<Application> findByStudent_id(Integer id);
 
-    @Query("SELECT a FROM Application a WHERE a.internshipOffer.id = :internshipOfferId")
+    @Query("SELECT a FROM Application a WHERE a.internshipOffer.id = :internshipOfferId and a.stauts <> 'ACCEPTED'")
     List<Application> ListApplicatioByOffer(@Param("internshipOfferId") Integer internshipOfferId);
+
+    Application findByInternshipOfferIdAndStudentId(Integer offerId, Integer studentId);
 }
