@@ -44,4 +44,12 @@ public class ApplicationService {
     public List<Application> findAllByStauts(EApplicationStatus status) {
         return applicationRepository.findAllByStauts(status);
     }
+
+    public Application updateApplication(Application application) {
+        return applicationRepository.save(application);
+    }
+
+    public Application getApplicationByOfferAndStudent(Integer offerId, Integer studentId) {
+        return applicationRepository.findByInternshipOfferIdAndStudentId(offerId, studentId);
+    }
 }

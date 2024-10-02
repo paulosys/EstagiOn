@@ -1,6 +1,8 @@
 package br.edu.ifpb.pweb2.estagion.controller;
 
+import br.edu.ifpb.pweb2.estagion.model.Application;
 import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
+import br.edu.ifpb.pweb2.estagion.service.CompanyService;
 import br.edu.ifpb.pweb2.estagion.service.InternshipOfferService;
 import br.edu.ifpb.pweb2.estagion.ui.NavPage;
 import br.edu.ifpb.pweb2.estagion.ui.NavePageBuilder;
@@ -15,9 +17,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.Optional;
 
 @Controller()
 @RequestMapping("/companies/internship-offers")
@@ -72,5 +76,6 @@ public class InternshipOffersController {
         internshipOfferService.delete(id);
         return "redirect:/companies/internship-offers";
     }
+
 
 }

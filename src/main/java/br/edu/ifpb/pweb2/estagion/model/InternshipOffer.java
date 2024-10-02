@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -63,4 +65,6 @@ public class InternshipOffer {
     @JoinColumn(name = "company_id", nullable = false)
     @ToString.Exclude
     private Company company;
+
+    private Boolean isFilled;
 }

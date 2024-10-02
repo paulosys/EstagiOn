@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InternshipOfferService {
@@ -63,5 +64,13 @@ public class InternshipOfferService {
     @Transactional
     public Page<InternshipOffer> findByWeeklyWorkload(String weeklyWorkload, Pageable pageable) {
         return internshipOfferRepository.findByWeeklyWorkload(weeklyWorkload, pageable);
+    }
+
+    @Transactional()
+    public Optional<InternshipOffer> getOfferWithApplications(Integer id) {
+        return internshipOfferRepository.findById(id);
+    }
+    public InternshipOffer updateOffer(InternshipOffer internshipOffer) {
+        return internshipOfferRepository.save(internshipOffer);
     }
 }
