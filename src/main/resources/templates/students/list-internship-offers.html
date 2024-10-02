@@ -50,7 +50,7 @@
             </td>
             <td th:text="${offer.company.getUsername()}"></td>
             <td>
-                <a th:href="@{/students/view-internship-offer(internshipOfferId=${offer.id}, studentId=${studentId})}"
+                <a th:href="@{/students/view-internship-offer(internshipOfferId=${offer.id})}"
                    class="btn btn-sm btn-warning"
                    data-toggle="tooltip"
                    data-placement="top"

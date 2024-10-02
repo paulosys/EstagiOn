@@ -79,14 +79,11 @@ public class StudentController {
     @GetMapping("/view-internship-offer")
     public ModelAndView showOffers(
             @RequestParam("internshipOfferId") Integer internshipOfferId,
-            @RequestParam("studentId") Integer studentId,
             ModelAndView modelAndView
     ) {
         modelAndView.setViewName("students/view-internship-offer");
 
         modelAndView.addObject("internshipOffer", internshipOfferService.findById(internshipOfferId));
-        modelAndView.addObject("studentId", studentId);
-        modelAndView.addObject("logoutUrl", "/auth/student/login");
         return modelAndView;
     }
 
@@ -104,14 +101,16 @@ public class StudentController {
 
     @PostMapping("/apply")
     public ModelAndView applyForInternship(
-            @RequestParam("studentId") Integer studentId,
             @RequestParam("internshipOfferId") Integer internshipOfferId,
+            Principal principal,
             ModelAndView modelAndView) {
-        applicationService.applyForInternship(studentId, internshipOfferId);
+
+        Student student = studentService.findByUsername(principal.getName());
+        InternshipOffer offer = internshipOfferService.findById(internshipOfferId);
+
+        applicationService.applyForInternship(student, offer);
 
         modelAndView.setViewName("students/application-success");
-        modelAndView.addObject("studentId", studentId);
-        modelAndView.addObject("logoutUrl", "/auth/student/login");
         return modelAndView;
     }
 
