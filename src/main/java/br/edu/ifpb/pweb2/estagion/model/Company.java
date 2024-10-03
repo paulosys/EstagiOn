@@ -62,4 +62,7 @@ public class Company extends User {
 
     @Lob
     private byte[] pdf;
+
+    @Column(nullable = true)
+    private boolean blocked;
 }

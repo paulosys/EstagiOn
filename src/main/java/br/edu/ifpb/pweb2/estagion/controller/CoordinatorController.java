@@ -15,10 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -164,5 +161,37 @@ public class CoordinatorController {
                 .filename("internship_term_" + internshipId + ".pdf").build());
 
         return new ResponseEntity<>(internshipTerm, headers, HttpStatus.OK);
+    }
+
+    // List all companies
+    @GetMapping("/list-companies")
+    public ModelAndView listCompanies() {
+        ModelAndView mav = new ModelAndView("coordinator/company-list");
+        List<Company> companies = companyService.findAll();
+        mav.addObject("companies", companies);
+        return mav;
+    }
+
+    // Show company form for editing
+    @GetMapping("/edit/{id}")
+    public ModelAndView showEditForm(@PathVariable("id") Integer id) {
+        ModelAndView mav = new ModelAndView("coordinator/company-edit");
+        Company company = companyService.findById(id);
+        mav.addObject("company", company);
+        return mav;
+    }
+
+    // Update company information
+    @PostMapping("/update")
+    public String updateCompany(@ModelAttribute("company") Company company) {
+        companyService.updateCompany(company);
+        return "redirect:/coordinator/companies";
+    }
+
+    // Block selected companies
+    @PostMapping("/block")
+    public String blockCompanies(@RequestParam("companyIds") List<Integer> companyIds) {
+        companyService.blockCompanies(companyIds);
+        return "redirect:/coordinator/companies";
     }
 }

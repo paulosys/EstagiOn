@@ -73,6 +73,18 @@ public class CompanyService {
         authorityRepository.save(authority);
     }
 
+    public void updateCompany(Company company) {
+        repository.save(company);
+    }
+
+    public void blockCompanies(List<Integer> companyIds) {
+        List<Company> companies = repository.findAllById(companyIds);
+        for (Company company : companies) {
+            company.setBlocked(true);
+        }
+        repository.saveAll(companies);
+    }
+
     public List<Application> ListApplicatioByOffer(Integer ofertaId) {
         return applicationRepository.ListApplicatioByOffer(ofertaId);
     }

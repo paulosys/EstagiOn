@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Empresas</title>
+</head>
+<body>
+<h1>Empresas Cadastradas</h1>
+
+<form th:action="@{/coordinator/companies/block}" method="post">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Selecionar</th>
+            <th>Nome</th>
+            <th>CNPJ</th>
+            <th>Endereço</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="company : ${companies}">
+            <td><input type="checkbox" name="companyIds" th:value="${company.id}" /></td>
+            <td th:text="${company.username}">Nome da Empresa</td>
+            <td th:text="${company.cnpj}">CNPJ</td>
+            <td th:text="${company.address}">Endereço</td>
+            <td>
+                <a th:href="@{/coordinator/companies/edit/{id}(id=${company.id})}">Editar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="submit">Bloquear Empresas Selecionadas</button>
+</form>
+</body>
+</html>

@@ -30,9 +30,6 @@
                     <i class="fas fa-briefcase fa-3x text-primary"></i>
                     <h5 class="card-title mt-3">Gerenciar Ofertas</h5>
                     <p class="card-text">Visualize as ofertas de estágio.</p>
-
-                    <br>
-
                     <a th:href="@{/coordinator/get-all-internship-offers}" class="btn btn-primary">Acessar</a>
                 </div>
             </div>
@@ -56,6 +53,18 @@
                     <h5 class="card-title mt-3">Visualizar estágios em andamento</h5>
                     <p class="card-text">Acompanhe os estágios em aberto.</p>
                     <a th:href="@{/coordinator/list-internships-in-progress}" class="btn btn-success">Acessar</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Novo card para Gerenciar Empresas -->
+        <div class="col-md-4 mb-4">
+            <div class="card dashboard-card bg-light">
+                <div class="card-body text-center">
+                    <i class="fas fa-building fa-3x text-warning"></i>
+                    <h5 class="card-title mt-3">Gerenciar Empresas</h5>
+                    <p class="card-text">Edite ou exclua os cadastros das empresas.</p>
+                    <a th:href="@{/coordinator/companies/manage}" class="btn btn-warning">Acessar</a>
                 </div>
             </div>
         </div>

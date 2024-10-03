@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Empresa</title>
+</head>
+<body>
+<h1>Editar Empresa</h1>
+
+<form th:action="@{/coordinator/companies/update}" th:object="${company}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <label>Nome:</label>
+    <input type="text" th:field="*{username}" required/><br/>
+    <label>CNPJ:</label>
+    <input type="text" th:field="*{cnpj}" required/><br/>
+    <label>Endereço:</label>
+    <input type="text" th:field="*{address}" required/><br/>
+    <label>Bloqueado:</label>
+    <input type="checkbox" th:field="*{blocked}"/><br/>
+
+    <button type="submit">Salvar</button>
+</form>
+</body>
+</html>
