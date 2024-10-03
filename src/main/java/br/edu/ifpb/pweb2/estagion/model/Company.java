@@ -1,6 +1,7 @@
 package br.edu.ifpb.pweb2.estagion.model;
 
 import br.edu.ifpb.pweb2.estagion.validators.CNPJ;
+import br.edu.ifpb.pweb2.estagion.validators.Telefone;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -30,6 +31,7 @@ public class Company extends User {
     private String address;
 
     @NotNull(message = "O telefone de contato é obrigatório")
+    @Telefone
     @Size(max = 20, message = "O telefone de contato deve ter no máximo 20 caracteres")
     @Column(nullable = false, length = 20)
     private String contactPhone;
