@@ -2,6 +2,8 @@ package br.edu.ifpb.pweb2.estagion.repositories;
 
 import br.edu.ifpb.pweb2.estagion.model.Application;
 import br.edu.ifpb.pweb2.estagion.model.EApplicationStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface ApplicationRepository extends JpaRepository<Application, Integer> {
-    List<Application> findAllByStauts(EApplicationStatus status);
+    Page<Application> findAllByStauts(EApplicationStatus status, Pageable pageable);
     List<Application> findByStudent_id(Integer id);
 
     @Query("SELECT a FROM Application a WHERE a.internshipOffer.id = :internshipOfferId and a.stauts <> 'ACCEPTED'")
