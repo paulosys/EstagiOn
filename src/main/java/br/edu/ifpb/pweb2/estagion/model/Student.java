@@ -1,5 +1,6 @@
 package br.edu.ifpb.pweb2.estagion.model;
 
+import br.edu.ifpb.pweb2.estagion.validators.CPF;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -16,6 +17,7 @@ import java.util.List;
 public class Student extends User {
     @NotNull(message = "O CPF é obrigatório")
     @Size(min = 11, max = 11, message = "O CPF deve ter exatamente 11 caracteres")
+    @CPF
     private String cpf;
 
     @NotNull(message = "O primeiro nome é obrigatório")
