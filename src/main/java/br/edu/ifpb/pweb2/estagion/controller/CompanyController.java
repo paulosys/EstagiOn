@@ -106,7 +106,9 @@ public class CompanyController {
 
 
     @GetMapping("/internshipoffers/{offerId}/applications")
-    public ModelAndView listApplicants(@PathVariable("offerId") Integer offerId, ModelAndView modelAndView) {
+    public ModelAndView listApplicants(@PathVariable("offerId") Integer offerId,
+                                       @RequestParam(defaultValue = "1") int page,
+                                       @RequestParam(defaultValue = "5") int size, ModelAndView modelAndView) {
         try {
             Optional<InternshipOffer> optionalOffer = internshipOfferService.getOfferWithApplications(offerId);
 
@@ -117,7 +119,12 @@ public class CompanyController {
             }
 
             InternshipOffer offer = optionalOffer.get();
-            List<Application> applications = companyService.ListApplicatioByOffer(offerId);
+
+            Page<Application> applications = companyService.ListApplicatioByOffer(offerId, PageRequest.of(page - 1, size));
+
+            NavPage navPage = NavePageBuilder.newNavPage(applications.getNumber() + 1,
+                    applications.getTotalElements(), applications.getTotalPages(), size);
+            modelAndView.addObject("navPage", navPage);
 
             modelAndView.setViewName("companies/list-applicants");
             modelAndView.addObject("internshipOffer", offer);

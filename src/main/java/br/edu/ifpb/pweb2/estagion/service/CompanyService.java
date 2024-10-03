@@ -9,6 +9,8 @@ import br.edu.ifpb.pweb2.estagion.repositories.AuthorityRepository;
 import br.edu.ifpb.pweb2.estagion.repositories.CompanyRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -73,7 +75,7 @@ public class CompanyService {
         authorityRepository.save(authority);
     }
 
-    public List<Application> ListApplicatioByOffer(Integer ofertaId) {
-        return applicationRepository.ListApplicatioByOffer(ofertaId);
+    public Page<Application> ListApplicatioByOffer(Integer ofertaId, Pageable pageable) {
+        return applicationRepository.ListApplicatioByOffer(ofertaId, pageable);
     }
 }
