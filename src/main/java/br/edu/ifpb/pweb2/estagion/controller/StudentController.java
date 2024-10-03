@@ -53,16 +53,49 @@ public class StudentController {
         return modelAndView;
     }
 
+//    @GetMapping("/list-internship-offers")
+//    public ModelAndView listIntershipOffers(
+//            HttpSession session,
+//            @RequestParam(value = "weeklyWorkload", required = false) String weeklyWorkload,
+//            @RequestParam(defaultValue = "1") int page,
+//            @RequestParam(defaultValue = "5") int size,
+//            ModelAndView modelAndView
+//    ) {
+//        Integer studentId = (Integer) session.getAttribute("loggedInStudent");
+//
+//        Page<InternshipOffer> internshipOffers;
+//        StatusInternshipOffer statusInternshipOffer = statusInternshipOfferService.findById(1);
+//
+//        Pageable paging = PageRequest.of(page - 1, size);
+//
+//        if (weeklyWorkload != null && !weeklyWorkload.isEmpty()) {
+//            internshipOffers = internshipOfferService.findByWeeklyWorkload(weeklyWorkload, paging);
+//        } else {
+//            internshipOffers = internshipOfferService.findByStatus(statusInternshipOffer);
+//            internshipOffers.forEach(i -> System.out.println(i.getStatus().getName()));
+//            internshipOffers =  internshipOfferService.findByStatus(statusInternshipOffer, paging);
+//        }
+//
+//        modelAndView.setViewName("students/list-internship-offers");
+//        modelAndView.addObject("internshipOffers", internshipOffers);
+//        modelAndView.addObject("studentId", studentId);
+//        modelAndView.addObject("logoutUrl", "/auth/student/login");
+//
+//        NavPage navPage = NavePageBuilder.newNavPage(internshipOffers.getNumber() + 1,
+//                internshipOffers.getTotalElements(), internshipOffers.getTotalPages(), size);
+//        modelAndView.addObject("navPage", navPage);
+//
+//        return modelAndView;
+//    }
+
+
     @GetMapping("/list-internship-offers")
     public ModelAndView listIntershipOffers(
-            HttpSession session,
             @RequestParam(value = "weeklyWorkload", required = false) String weeklyWorkload,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "5") int size,
             ModelAndView modelAndView
     ) {
-        Integer studentId = (Integer) session.getAttribute("loggedInStudent");
-
         Page<InternshipOffer> internshipOffers;
         StatusInternshipOffer statusInternshipOffer = statusInternshipOfferService.findById(1);
 
@@ -71,20 +104,12 @@ public class StudentController {
         if (weeklyWorkload != null && !weeklyWorkload.isEmpty()) {
             internshipOffers = internshipOfferService.findByWeeklyWorkload(weeklyWorkload, paging);
         } else {
-            internshipOffers = internshipOfferService.findByStatus(statusInternshipOffer);
+            internshipOffers = internshipOfferService.findByStatus(statusInternshipOffer,paging);
             internshipOffers.forEach(i -> System.out.println(i.getStatus().getName()));
-            internshipOffers =  internshipOfferService.findByStatus(statusInternshipOffer, paging);
         }
 
         modelAndView.setViewName("students/list-internship-offers");
         modelAndView.addObject("internshipOffers", internshipOffers);
-        modelAndView.addObject("studentId", studentId);
-        modelAndView.addObject("logoutUrl", "/auth/student/login");
-
-        NavPage navPage = NavePageBuilder.newNavPage(internshipOffers.getNumber() + 1,
-                internshipOffers.getTotalElements(), internshipOffers.getTotalPages(), size);
-        modelAndView.addObject("navPage", navPage);
-
         return modelAndView;
     }
 

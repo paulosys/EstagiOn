@@ -115,20 +115,13 @@ public class CoordinatorController {
     }
 
     @GetMapping("/get-all-internship-offers")
-    public ModelAndView GetAllInternshipOffers(ModelAndView modelAndView) {
+    public ModelAndView GetAllInternshipOffers(ModelAndView modelAndView,
+                                               @RequestParam(defaultValue = "1") int page,
+                                               @RequestParam(defaultValue = "5") int size) {
         StatusInternshipOffer statusInternshipOffer = statusInternshipOfferService.findById(1);
-    public ModelAndView GetAllInternshipOffers(ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int size) {
-        StatusInternshipOffer statusInternshipOffer = _statusInternshipOfferService.findById(1);
         Pageable paging = PageRequest.of(page - 1, size);
 
-        List<InternshipOffer> internshipOffers = internshipOfferService.findByStatus(statusInternshipOffer);
-        Page<InternshipOffer> internshipOffers = _internshipOfferService.findByStatus(statusInternshipOffer, paging);
-
-        if (internshipOffers == null || internshipOffers.isEmpty()) {
-            System.out.println("Nenhuma oferta de estágio encontrada!");
-        } else {
-            System.out.println("Ofertas de estágio encontradas: " + internshipOffers.getTotalElements());
-        }
+        Page<InternshipOffer> internshipOffers = internshipOfferService.findByStatus(statusInternshipOffer, paging);
 
         NavPage navPage = NavePageBuilder.newNavPage(internshipOffers.getNumber() + 1,
                 internshipOffers.getTotalElements(), internshipOffers.getTotalPages(), size);
