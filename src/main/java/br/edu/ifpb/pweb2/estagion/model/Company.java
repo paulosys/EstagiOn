@@ -1,5 +1,6 @@
 package br.edu.ifpb.pweb2.estagion.model;
 
+import br.edu.ifpb.pweb2.estagion.validators.CNPJ;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ import java.util.List;
 public class Company extends User {
     @NotNull(message = "O CNPJ é obrigatório")
     @Size(min = 14, max = 14, message = "O CNPJ deve ter exatamente 14 caracteres")
+    @CNPJ
     @Column(nullable = false, length = 14)
     private String cnpj;
 
