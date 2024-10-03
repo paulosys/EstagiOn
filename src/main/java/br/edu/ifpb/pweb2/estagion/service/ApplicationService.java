@@ -7,8 +7,11 @@ import br.edu.ifpb.pweb2.estagion.model.Student;
 import br.edu.ifpb.pweb2.estagion.repositories.ApplicationRepository;
 import br.edu.ifpb.pweb2.estagion.repositories.InternshipOfferRepository;
 import br.edu.ifpb.pweb2.estagion.repositories.StudentRepository;
+import com.itextpdf.kernel.utils.PageRange;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,8 +36,8 @@ public class ApplicationService {
     }
 
     @Transactional
-    public List<Application> findAllByStauts(EApplicationStatus status) {
-        return applicationRepository.findAllByStauts(status);
+    public Page<Application> findAllByStauts(EApplicationStatus status, Pageable pageable) {
+        return applicationRepository.findAllByStauts(status, pageable);
     }
 
     public Application updateApplication(Application application) {
