@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface ApplicationRepository extends JpaRepository<Application, Integer> {
     Page<Application> findAllByStauts(EApplicationStatus status, Pageable pageable);
-    List<Application> findByStudent_id(Integer id);
+    Page<Application> findByStudent_id(Integer id, Pageable pageable);
 
     @Query("SELECT a FROM Application a WHERE a.internshipOffer.id = :internshipOfferId and a.stauts <> 'ACCEPTED'")
     List<Application> ListApplicatioByOffer(@Param("internshipOfferId") Integer internshipOfferId);

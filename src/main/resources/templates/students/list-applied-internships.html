@@ -39,6 +39,7 @@
         </tr>
         </tbody>
     </table>
+    <div th:replace="~{/fragments/paging :: paginator('students/list-applied-internships', ${navPage})}"></div>
 </div>
 
 <div th:insert="fragments/header-and-footer-dashboards.html :: footer"></div>

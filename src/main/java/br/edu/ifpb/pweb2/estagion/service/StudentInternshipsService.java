@@ -7,6 +7,8 @@ import br.edu.ifpb.pweb2.estagion.repositories.ApplicationRepository;
 import br.edu.ifpb.pweb2.estagion.repositories.InternshipOfferRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +20,8 @@ public class StudentInternshipsService {
     private ApplicationRepository applicationRepository;
 
     @Transactional
-    public List<Application> findByStudentId(Integer id) {
-        return applicationRepository.findByStudent_id(id);
+    public Page<Application> findByStudentId(Integer id, Pageable pageable) {
+        return applicationRepository.findByStudent_id(id, pageable);
     }
 
 }
