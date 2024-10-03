@@ -6,10 +6,13 @@ import br.edu.ifpb.pweb2.estagion.model.StatusInternshipOffer;
 import br.edu.ifpb.pweb2.estagion.repositories.InternshipOfferRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InternshipOfferService {
@@ -27,15 +30,13 @@ public class InternshipOfferService {
     }
 
     @Transactional
-    public  List<InternshipOffer> findByCompanyId(Integer company) {
-        List<InternshipOffer> result = internshipOfferRepository.findByCompanyId(company);
-        return result;
+    public Page<InternshipOffer> findByCompanyId(Integer company, Pageable page) {
+        return internshipOfferRepository.findByCompanyId(company, page);
     }
 
     @Transactional
-    public List<InternshipOffer> findByStatus(StatusInternshipOffer status) {
-        List<InternshipOffer> result = internshipOfferRepository.findByStatus(status);
-        return result;
+    public Page<InternshipOffer> findByStatus(StatusInternshipOffer status, Pageable pageable) {
+        return internshipOfferRepository.findByStatus(status, pageable);
     }
 
     public InternshipOffer findById(int id) {
@@ -47,21 +48,27 @@ public class InternshipOfferService {
         internshipOfferRepository.delete(internshipOffer);
     }
 
-    public void save(InternshipOffer internshipOffer, Integer companyId) {
+    public void save(InternshipOffer internshipOffer, Company company) {
         var status = statusInternshipOfferService.findById(1);
-        var company = companyService.findById(companyId);
 
         internshipOffer.setCompany(company);
         internshipOffer.setStatus(status);
 
         var offer = internshipOfferRepository.save(internshipOffer);
 
-        company.getInternshipOffers().add(offer);
-        companyService.save(company);
+        companyService.saveInternshipOffer(company, offer);
     }
 
     @Transactional
-    public List<InternshipOffer> findByWeeklyWorkload(String weeklyWorkload) {
-        return internshipOfferRepository.findByWeeklyWorkload(weeklyWorkload);
+    public Page<InternshipOffer> findByWeeklyWorkload(String weeklyWorkload, Pageable pageable) {
+        return internshipOfferRepository.findByWeeklyWorkload(weeklyWorkload, pageable);
+    }
+
+    @Transactional()
+    public Optional<InternshipOffer> getOfferWithApplications(Integer id) {
+        return internshipOfferRepository.findById(id);
+    }
+    public InternshipOffer updateOffer(InternshipOffer internshipOffer) {
+        return internshipOfferRepository.save(internshipOffer);
     }
 }

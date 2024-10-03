@@ -1,25 +1,28 @@
 package br.edu.ifpb.pweb2.estagion.controller;
 
 import br.edu.ifpb.pweb2.estagion.model.*;
-import br.edu.ifpb.pweb2.estagion.service.ApplicationService;
-import br.edu.ifpb.pweb2.estagion.service.CompanyService;
-import br.edu.ifpb.pweb2.estagion.service.InternshipOfferService;
-import br.edu.ifpb.pweb2.estagion.service.StudentService;
-import br.edu.ifpb.pweb2.estagion.model.Company;
+import br.edu.ifpb.pweb2.estagion.service.*;
 import br.edu.ifpb.pweb2.estagion.model.Coordinator;
 import br.edu.ifpb.pweb2.estagion.model.InternshipOffer;
 import br.edu.ifpb.pweb2.estagion.model.StatusInternshipOffer;
 import br.edu.ifpb.pweb2.estagion.service.InternshipOfferService;
-import br.edu.ifpb.pweb2.estagion.service.StatusInternshipOfferService;
-import jdk.jshell.Snippet;
+import br.edu.ifpb.pweb2.estagion.service.*;
+import br.edu.ifpb.pweb2.estagion.ui.NavPage;
+import br.edu.ifpb.pweb2.estagion.ui.NavePageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/coordinator")
@@ -33,12 +36,14 @@ public class CoordinatorController {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private InternshipOfferService internshipOfferService;
 
     @Autowired
-    private InternshipOfferService _internshipOfferService;
+    private StatusInternshipOfferService statusInternshipOfferService;
 
     @Autowired
-    private StatusInternshipOfferService _statusInternshipOfferService;
+    private InternshipService internshipService;
 
     @GetMapping
     public ModelAndView showHome(
@@ -47,19 +52,46 @@ public class CoordinatorController {
     ) {
         modelAndView.setViewName("coordinator/index");
         modelAndView.addObject("coordinator", coordinator);
+        modelAndView.addObject("logoutUrl", "/auth/coordinator/login");
 
         return modelAndView;
     }
 
     @GetMapping("/list-application")
     public ModelAndView listApplications(
-            ModelAndView modelAndView
+            ModelAndView modelAndView,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "5") int size
     ) {
-        List<Application> applications = applicationService.findAllByStauts(EApplicationStatus.APPLIED);
+        Pageable paging = PageRequest.of(page - 1, size);
+        Page<Application> applications = applicationService.findAllByStauts(EApplicationStatus.APPLIED, paging);
 
-        modelAndView.setViewName("coordinator/list-application");
-        modelAndView.addObject("applications", applicationService.findAllByStauts(EApplicationStatus.APPLIED));
-        return modelAndView;
+        ModelAndView mav = new ModelAndView("coordinator/list-application");
+
+        NavPage navPage = NavePageBuilder.newNavPage(applications.getNumber() + 1,
+                applications.getTotalElements(), applications.getTotalPages(), size);
+        mav.addObject("navPage", navPage);
+
+        mav.addObject("applications", applications.getContent());
+        return mav;
+    }
+
+    @GetMapping("/list-internships-in-progress")
+    public ModelAndView listInternshipsInProgress(@RequestParam(defaultValue = "1") int page,
+                                                  @RequestParam(defaultValue = "5") int size){
+        // Crie o objeto Pageable com a página correta (zero-indexed)
+        Pageable paging = PageRequest.of(page - 1, size);
+        Page<Internship> internships = internshipService.listInternhipsInProgress(paging);
+
+        ModelAndView mav = new ModelAndView("coordinator/list-internships-in-progress");
+
+        // Configure a navegação da página
+        NavPage navPage = NavePageBuilder.newNavPage(internships.getNumber() + 1,
+                internships.getTotalElements(), internships.getTotalPages(), size);
+        mav.addObject("navPage", navPage);
+
+        mav.addObject("internships", internships.getContent());
+        return mav;
     }
 
     @GetMapping("/view-company")
@@ -70,6 +102,7 @@ public class CoordinatorController {
         modelAndView.setViewName("coordinator/view-company");
 
         modelAndView.addObject("company", companyService.findById(companyId));
+        modelAndView.addObject("logoutUrl", "/auth/coordinator/login");
         return modelAndView;
     }
 
@@ -81,21 +114,55 @@ public class CoordinatorController {
         modelAndView.setViewName("coordinator/view-student");
 
         modelAndView.addObject("student", studentService.findById(studentId));
-      
+        modelAndView.addObject("logoutUrl", "/auth/coordinator/login");
+        return modelAndView;
+    }
+
+    @GetMapping("/view-offer/{id}")
+    public ModelAndView showoffer(
+            @PathVariable("id") Integer id,
+            ModelAndView modelAndView
+    ) {
+        modelAndView.setViewName("coordinator/view-offer");
+
+        modelAndView.addObject("offer", internshipOfferService.findById(id));
+        return modelAndView;
+    }
+
     @GetMapping("/get-all-internship-offers")
-    public ModelAndView GetAllInternshipOffers(ModelAndView modelAndView) {
-        StatusInternshipOffer statusInternshipOffer = _statusInternshipOfferService.findById(1);
+    public ModelAndView GetAllInternshipOffers(ModelAndView modelAndView,
+                                               @RequestParam(defaultValue = "1") int page,
+                                               @RequestParam(defaultValue = "5") int size) {
+        StatusInternshipOffer statusInternshipOffer = statusInternshipOfferService.findById(1);
+        Pageable paging = PageRequest.of(page - 1, size);
 
-        List<InternshipOffer> internshipOffers = _internshipOfferService.findByStatus(statusInternshipOffer);
+        Page<InternshipOffer> internshipOffers = internshipOfferService.findByStatus(statusInternshipOffer, paging);
 
-        if (internshipOffers == null || internshipOffers.isEmpty()) {
-            System.out.println("Nenhuma oferta de estágio encontrada!");
-        } else {
-            System.out.println("Ofertas de estágio encontradas: " + internshipOffers.size());
-        }
+        NavPage navPage = NavePageBuilder.newNavPage(internshipOffers.getNumber() + 1,
+                internshipOffers.getTotalElements(), internshipOffers.getTotalPages(), size);
+        modelAndView.addObject("navPage", navPage);
 
         modelAndView.setViewName("coordinator/get-all-internships-offers");
         modelAndView.addObject("internshipOffers", internshipOffers);
+        modelAndView.addObject("logoutUrl", "/auth/coordinator/login");
+
         return modelAndView;
+    }
+
+    @GetMapping("/download-internships-term/{internshipId}")
+    public ResponseEntity<byte[]> downloadInternshipTerm(@PathVariable Integer internshipId) {
+        Optional<Internship> internship = internshipService.findById(internshipId);
+
+        if (internship.isEmpty() || internship.get().getInternshipTerm() == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        byte[] internshipTerm = internship.get().getInternshipTerm();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDisposition(ContentDisposition.builder("attachment")
+                .filename("internship_term_" + internshipId + ".pdf").build());
+
+        return new ResponseEntity<>(internshipTerm, headers, HttpStatus.OK);
     }
 }

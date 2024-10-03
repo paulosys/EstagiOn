@@ -5,8 +5,22 @@
     <title>Listagem de Ofertas de Estágio Abertas</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+        table td, table th {
+            word-wrap: break-word;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+        }
+    </style>
 </head>
 <body>
+
+<div th:insert="fragments/header-and-footer-dashboards.html :: header"></div>
 
 <div class="container mt-5">
     <h2 class="mb-4">Ofertas de Estágio Abertas</h2>
@@ -27,40 +41,32 @@
         </tr>
         </thead>
         <tbody>
-        <!-- Iteração sobre a lista de ofertas de estágio -->
         <tr th:each="offer : ${internshipOffers}">
             <td th:text="${offer.title}"></td>
             <td th:text="${offer.description}"></td>
             <td th:text="${offer.mainActivity}"></td>
-            <td th:text="${offer.stipendAmount}"></td> <!-- Formatação do valor da bolsa -->
+            <td th:text="${offer.stipendAmount}"></td>
             <td th:text="${offer.weeklyWorkload} + ' horas/semana'"></td>
             <td th:text="${offer.prerequisites}"></td>
             <td th:text="${offer.requiredSkills}"></td>
             <td th:text="${offer.desiredSkills}"></td>
-            <td th:text="${offer.company.name}"></td>
+            <td th:text="${offer.company.getUsername()}"></td>
             <td>
-                <a th:href="@{/internship-offers/view/{id}(id=${offer.id})}"
-                   class="btn btn-sm btn-info"
+                <a th:href="@{/coordinator/view-offer/{id}(id=${offer.id})}"
+                   class="btn btn-sm btn-warning"
                    data-toggle="tooltip"
                    data-placement="top"
-                   title="Ver Detalhes da Oferta">
-                    <i class="fas fa-eye"></i>
+                   title="Visualizar Oferta">
+                    <i class="fas fa-regular fa-eye"></i>
                 </a>
             </td>
         </tr>
         </tbody>
     </table>
+    <div th:replace="~{/fragments/paging :: paginator('coordinator/get-all-internship-offers', ${navPage})}"></div>
 </div>
 
-<footer class="footer mt-5 py-3 bg-light fixed-bottom">
-    <div class="container">
-        <p class="text-center mb-0">© 2024 EstagiOn</p>
-    </div>
-</footer>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div th:insert="fragments/header-and-footer-dashboards.html :: footer"></div>
 
 </body>
 </html>

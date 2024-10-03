@@ -8,11 +8,13 @@
 </head>
 <body>
 
+<div th:insert="fragments/header-and-footer-dashboards.html :: header"></div>
+
+
 <div class="container mt-5">
     <h2 class="mb-4">Ofertas de Estágio</h2>
 
     <form method="GET" th:action="@{/students/list-internship-offers}">
-        <input type="hidden" name="studentId" th:value="${studentId}" />
         <div class="row mb-4">
             <div class="col-md-4">
                 <input type="text" name="weeklyWorkload" class="form-control" placeholder="Filtrar por Carga Horária"
@@ -22,7 +24,7 @@
         <div class="row mb-4">
             <div class="col-md-12 text-right">
                 <button type="submit" class="btn btn-primary">Filtrar</button>
-                <a th:href="@{/students/list-internship-offers(studentId=${studentId})}" class="btn btn-secondary">Limpar Filtros</a>
+                <a th:href="@{/students/list-internship-offers}" class="btn btn-secondary">Limpar Filtros</a>
             </div>
         </div>
     </form>
@@ -34,6 +36,7 @@
             <th>Atividade Principal</th>
             <th>Carga Horária</th>
             <th>Status</th>
+            <th>Empresa</th>
             <th>Ações</th>
         </tr>
         </thead>
@@ -45,8 +48,9 @@
             <td>
                 <span th:text="${offer.status.getName()}" class="badge badge-primary"/>
             </td>
+            <td th:text="${offer.company.getUsername()}"></td>
             <td>
-                <a th:href="@{/students/view-internship-offer(internshipOfferId=${offer.id}, studentId=${studentId})}"
+                <a th:href="@{/students/view-internship-offer(internshipOfferId=${offer.id})}"
                    class="btn btn-sm btn-warning"
                    data-toggle="tooltip"
                    data-placement="top"
@@ -57,13 +61,11 @@
         </tr>
         </tbody>
     </table>
+    <div th:replace="~{/fragments/paging :: paginator('students/list-internship-offers', ${navPage})}"></div>
 </div>
 
-<footer class="footer mt-5 py-3 bg-light fixed-bottom">
-    <div class="container">
-        <p class="text-center mb-0">© 2024 EstagiOn</p>
-    </div>
-</footer>
+<div th:insert="fragments/header-and-footer-dashboards.html :: footer"></div>
+
 
 </body>
 </html>

@@ -1,5 +1,7 @@
 package br.edu.ifpb.pweb2.estagion.model;
 
+import br.edu.ifpb.pweb2.estagion.validators.CNPJ;
+import br.edu.ifpb.pweb2.estagion.validators.Telefone;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -17,14 +19,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Company extends User {
-
-    @NotNull(message = "O nome da empresa é obrigatório")
-    @Size(max = 50, message = "O nome da empresa deve ter até 50 caracteres")
-    @Column(nullable = false, length = 50)
-    private String name;
-
     @NotNull(message = "O CNPJ é obrigatório")
     @Size(min = 14, max = 14, message = "O CNPJ deve ter exatamente 14 caracteres")
+    @CNPJ
     @Column(nullable = false, length = 14)
     private String cnpj;
 
@@ -34,6 +31,7 @@ public class Company extends User {
     private String address;
 
     @NotNull(message = "O telefone de contato é obrigatório")
+    @Telefone
     @Size(max = 20, message = "O telefone de contato deve ter no máximo 20 caracteres")
     @Column(nullable = false, length = 20)
     private String contactPhone;

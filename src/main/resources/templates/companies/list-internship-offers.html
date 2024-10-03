@@ -8,10 +8,14 @@
 </head>
 <body>
 
+<div th:insert="fragments/header-and-footer-dashboards.html :: header"></div>
+
 <div class="container mt-5">
     <h2 class="mb-4">Minhas Ofertas de Estágio</h2>
 
-    <a th:href="@{/companies/internship-offers/create}" class="btn btn-primary mb-3">Registrar Nova Oferta</a>
+    <form th:action="@{/companies/create-internship-offer}" method="get">
+        <button type="submit" class="btn btn-primary mb-4">Criar Nova Oferta</button>
+    </form>
 
     <table class="table table-striped">
         <thead>
@@ -27,34 +31,32 @@
         <tr th:each="offer : ${internshipOffers}">
             <td th:text="${offer.title}"></td>
             <td th:text="${offer.mainActivity}"></td>
-            <td th:text="${offer.weeklyWorkload}"></td>
+            <td th:text="${offer.weeklyWorkload} + ' horas/semana'"></td>
             <td>
                 <span th:text="${offer.status.getName()}" class="badge badge-primary"/>
             </td>
             <td>
-                <a th:href="@{/companies/internship-offers/edit/{id}(id=${offer.id})}"
-                   class="btn btn-sm btn-warning"
-                   data-toggle="tooltip"
-                   data-placement="top"
-                   title="Editar Oferta">
-                    <i class="fas fa-pencil-alt"></i>
-                </a>
-                <form th:action="@{'/companies/internship-offers/delete/' + ${offer.id}}" method="post" style="display:inline;">
+                <form th:action="@{'/companies/delete-internship-offers/' + ${offer.id}}" method="post">
                     <button type="submit" title="Excluir Oferta" class="btn btn-sm btn-danger d-inline-block">
                         <i class="fas fa-trash"></i>
                     </button>
+
+                    <a th:href="@{/companies/internshipoffers/{id}/applications(id=${offer.id})}"
+                       class="btn btn-sm btn-info"
+                       data-toggle="tooltip"
+                       data-placement="top"
+                       title="Visualizar Candidatos">
+                        <i class="fas fa-eye"></i>
+                    </a>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
+    <div th:replace="~{/fragments/paging :: paginator('companies/internship-offers', ${navPage})}"></div>
 </div>
 
-<footer class="footer mt-5 py-3 bg-light fixed-bottom">
-    <div class="container">
-        <p class="text-center mb-0">© 2024 EstagiOn</p>
-    </div>
-</footer>
+<div th:insert="fragments/header-and-footer-dashboards.html :: footer"></div>
 
 </body>
 </html>

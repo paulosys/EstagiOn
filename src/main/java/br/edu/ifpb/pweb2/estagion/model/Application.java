@@ -22,7 +22,7 @@ public class Application {
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "IntershipOffer", nullable = false)
+    @JoinColumn(name = "internship_offer", nullable = false)
     @NotNull
     private InternshipOffer internshipOffer;
 

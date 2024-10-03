@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragmentos</title>
+</head>
+<body>
+
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"><strong>EstagiOn</strong></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <form class="navbar-nav ml-auto" th:action="@{/auth/logout}" method="POST">
+                <span  style="margin-right: 3px; font-size: 0.8em;"></span>
+                <button type="submit" class="btn btn-outline-success my-2 my-sm-0">
+                    Sair
+                </button>
+            </form>
+        </div>
+    </nav>
+</header>
+
+<footer th:fragment="footer" class="footer mt-5 py-3 bg-light fixed-bottom">
+    <div class="container">
+        <p class="text-center mb-0">© 2024 EstagiOn</p>
+    </div>
+</footer>
+
+</body>
+</html>

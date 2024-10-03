@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <title>Erro</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .error-container {
+            margin-top: 10%;
+        }
+        .card {
+            border: 2px solid #e3e3e3;
+            background-color: #ffffff;
+        }
+        .card-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            color: #dc3545;
+        }
+        .card-body {
+            text-align: center;
+            color: #333333;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container error-container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header">Oops! Algo deu errado.</div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${errorMessage}">
+                        Error message goes here
+                    </h5>
+                    <p class="card-text">
+                        Desculpe, ocorreu um erro inesperado. Por favor, tente novamente mais tarde. Se o problema persistir, entre em contato com o suporte.
+                    </p>
+                    <a th:href="@{/}" class="btn btn-danger btn-lg">Voltar para a página inicial</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
