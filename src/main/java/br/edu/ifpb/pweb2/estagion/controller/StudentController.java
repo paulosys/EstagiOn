@@ -108,6 +108,10 @@ public class StudentController {
             internshipOffers.forEach(i -> System.out.println(i.getStatus().getName()));
         }
 
+        NavPage navPage = NavePageBuilder.newNavPage(internshipOffers.getNumber() + 1,
+                internshipOffers.getTotalElements(), internshipOffers.getTotalPages(), size);
+        modelAndView.addObject("navPage", navPage);
+
         modelAndView.setViewName("students/list-internship-offers");
         modelAndView.addObject("internshipOffers", internshipOffers);
         return modelAndView;
@@ -116,14 +120,21 @@ public class StudentController {
     @GetMapping("/list-applied-internships")
     public ModelAndView listAppliedInternships(
             ModelAndView modelAndView,
-            Principal principal
+            Principal principal,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "5") int size
     ) {
         Student student = studentService.findByUsername(principal.getName());
         Integer studentId = student.getId();
-        List<Application> appliedInternships = studentInternshipsService.findByStudentId(studentId);
+        Page<Application> appliedInternships = studentInternshipsService.findByStudentId(studentId, PageRequest.of(page - 1, size));
 
         modelAndView.setViewName("students/list-applied-internships");
         modelAndView.addObject("appliedInternships", appliedInternships);
+
+        NavPage navPage = NavePageBuilder.newNavPage(appliedInternships.getNumber() + 1,
+                appliedInternships.getTotalElements(), appliedInternships.getTotalPages(), size);
+        modelAndView.addObject("navPage", navPage);
+
         return modelAndView;
     }
 

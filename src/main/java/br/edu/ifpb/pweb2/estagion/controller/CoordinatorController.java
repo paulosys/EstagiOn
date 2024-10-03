@@ -59,9 +59,16 @@ public class CoordinatorController {
 
     @GetMapping("/list-application")
     public ModelAndView listApplications(
-            ModelAndView modelAndView
+            ModelAndView modelAndView,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "5") int size
     ) {
-        List<Application> applications = applicationService.findAllByStauts(EApplicationStatus.APPLIED);
+        Pageable paging = PageRequest.of(page - 1, size);
+        Page<Application> applications = applicationService.findAllByStauts(EApplicationStatus.APPLIED, paging);
+
+        NavPage navPage = NavePageBuilder.newNavPage(applications.getNumber() + 1,
+                applications.getTotalElements(), applications.getTotalPages(), size);
+        modelAndView.addObject("navPage", navPage);
 
         modelAndView.setViewName("coordinator/list-application");
         modelAndView.addObject("applications", applications);
@@ -69,13 +76,18 @@ public class CoordinatorController {
     }
 
     @GetMapping("/list-internships-in-progress")
-    public ModelAndView listInternshipsInProgress(@RequestParam(defaultValue = "0") int page,
+    public ModelAndView listInternshipsInProgress(@RequestParam(defaultValue = "1") int page,
                                        @RequestParam(defaultValue = "5") int size){
-        Page<Internship> internships = internshipService.listInternhipsInProgress(PageRequest.of(page, size));
+        Page<Internship> internships = internshipService.listInternhipsInProgress(PageRequest.of(page - 1, size));
         ModelAndView mav = new ModelAndView("coordinator/list-internships-in-progress");
 
         mav.addObject("internships", internships.getContent());
         mav.addObject("page", internships);
+
+        NavPage navPage = NavePageBuilder.newNavPage(internships.getNumber() + 1,
+                internships.getTotalElements(), internships.getTotalPages(), size);
+        mav.addObject("navPage", navPage);
+
         return mav;
     }
 
