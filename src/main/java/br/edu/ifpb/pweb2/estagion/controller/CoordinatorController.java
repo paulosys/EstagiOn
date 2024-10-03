@@ -59,6 +59,7 @@ public class CoordinatorController {
 
     @GetMapping("/list-application")
     public ModelAndView listApplications(
+            ModelAndView modelAndView,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "5") int size
     ) {
